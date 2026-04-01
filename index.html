@@ -1,0 +1,1007 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SAM'S JAMS - THE NEON PULSE</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Manrope:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-dim": "#00d4ec",
+              "primary-fixed": "#cb80ff",
+              surface: "#0e0e13",
+              "inverse-surface": "#fbf8ff",
+              "inverse-primary": "#9100e0",
+              "on-tertiary-fixed": "#37001b",
+              "secondary-fixed": "#26e6ff",
+              primary: "#d394ff",
+              "on-primary-container": "#39005c",
+              "on-tertiary-container": "#000000",
+              "on-background": "#f8f5fd",
+              error: "#ff6e84",
+              tertiary: "#ff68a7",
+              "primary-fixed-dim": "#c26bff",
+              background: "#0e0e13",
+              "surface-dim": "#0e0e13",
+              "on-secondary-fixed-variant": "#005964",
+              "tertiary-dim": "#e10080",
+              "tertiary-fixed-dim": "#ff74ac",
+              "tertiary-container": "#fc0d90",
+              "on-secondary": "#004d57",
+              "on-primary-fixed": "#000000",
+              "on-tertiary-fixed-variant": "#750040",
+              "outline-variant": "#48474d",
+              "primary-dim": "#aa30fa",
+              "surface-container-low": "#131318",
+              "secondary-fixed-dim": "#00d7f0",
+              outline: "#76747b",
+              "on-primary-fixed-variant": "#470071",
+              "secondary-container": "#006875",
+              "surface-container": "#19191f",
+              "on-error-container": "#ffb2b9",
+              "on-surface-variant": "#acaab1",
+              "on-tertiary": "#460024",
+              "tertiary-fixed": "#ff8db7",
+              "on-error": "#490013",
+              "primary-container": "#cb80ff",
+              "on-surface": "#f8f5fd",
+              "surface-variant": "#25252c",
+              secondary: "#00e3fd",
+              "surface-container-lowest": "#000000",
+              "on-primary": "#4a0076",
+              "surface-container-high": "#1f1f26",
+              "surface-bright": "#2c2b33",
+              "error-container": "#a70138",
+              "inverse-on-surface": "#55545a",
+              "error-dim": "#d73357",
+              "on-secondary-container": "#e8fbff",
+              "surface-tint": "#d394ff",
+              "surface-container-highest": "#25252c",
+              "on-secondary-fixed": "#003a42",
+            },
+            fontFamily: {
+              headline: ["Epilogue"],
+              body: ["Manrope"],
+              label: ["Space Grotesk"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .tonal-carving {
+        background: linear-gradient(
+          180deg,
+          rgba(14, 14, 19, 1) 0%,
+          rgba(25, 25, 31, 1) 100%
+        );
+      }
+      .neon-glow {
+        box-shadow: 0 0 48px rgba(170, 48, 250, 0.08);
+      }
+      .grain-overlay {
+        position: relative;
+      }
+      .grain-overlay::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.03;
+        pointer-events: none;
+        background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAaIUKZlMQC3Mtr_TqqXXIt499BnJNYA8pIuZgalcnMTnoFw7UYbZrefGg_Wq0KHNR_5au1AyTK57ZvUqDJ6Cnni3m-QLzNaAuOc72to1Ao88ma4jKfQWuHg9GSam6Va6XFBoXSsyncQ4GwxKZ7-KsRR9csgMsvHuaoUcEvsVo1X8YKAcvO7W6wQ_g8LPdKX_i7YtvnOG2lSd2Sr9_EfF794Zbs8YcpdMgOWBo81A7p3Dy1kkv7Ih6bzleDCzvbpww2olptLnoMAbs);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-container"
+  >
+    <!-- TopNavBar -->
+    <nav
+      id="top-nav"
+      class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_50px_-12px_rgba(138,43,226,0.3)] h-20 w-full translate-y-0 opacity-100 [transition-property:transform,opacity] duration-300 ease-out"
+    >
+      <div
+        class="w-full max-w-screen-xl mx-auto h-full px-10 md:px-20 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-12">
+          <span
+            class="text-2xl font-black italic tracking-tighter text-purple-500 font-headline"
+            >SAM'S JAMS</span
+          >
+          <div
+            class="hidden md:flex items-center gap-8 font-label text-xs uppercase tracking-widest"
+          >
+            <a
+              class="text-purple-400 border-b-2 border-purple-500 pb-1"
+              href="index.html"
+              >Song of the Week</a
+            >
+            <a
+              class="text-slate-400 hover:text-white transition-colors border-b-2 border-transparent pb-1"
+              href="top100.html"
+              >Top 100</a
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <button
+            id="mobile-menu-toggle"
+            type="button"
+            aria-label="Toggle videos menu"
+            aria-expanded="false"
+            aria-controls="mobile-videos-menu"
+            class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/15 text-on-surface hover:bg-surface-variant/80 transition-colors"
+          >
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div
+      id="mobile-videos-menu"
+      class="md:hidden fixed top-20 left-0 right-0 z-40 px-4 pt-3 pointer-events-none"
+    >
+      <div
+        class="rounded-2xl border border-white/10 bg-surface-container-high/95 backdrop-blur-xl shadow-[0_16px_48px_-18px_rgba(138,43,226,0.45)] p-3 space-y-2 opacity-0 -translate-y-2 scale-[0.98] origin-top [transition-property:transform,opacity] duration-200 ease-out"
+      >
+        <div
+          class="px-3 pt-1 pb-3 border-b border-white/10 font-label text-xs uppercase tracking-widest flex items-baseline justify-between"
+        >
+          <p
+            class="inline-block text-purple-400 border-b-2 border-purple-500 pb-1"
+          >
+            Song of the Week
+          </p>
+          <a
+            href="top100.html"
+            class="inline-flex items-center gap-1 text-slate-400 hover:text-white transition-colors ml-4"
+            >Top 100
+            <span class="material-symbols-outlined text-[14px]"
+              >arrow_forward</span
+            ></a
+          >
+        </div>
+        <button
+          type="button"
+          data-trending-menu-item
+          data-target-id="video-01"
+          class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container border border-primary/30 hover:border-primary/60 transition-colors group"
+        >
+          <span
+            data-trending-menu-number
+            class="font-headline text-3xl text-secondary transition-colors w-10 text-center"
+            >01</span
+          >
+          <div class="flex-grow">
+            <p class="font-headline text-sm font-bold text-on-surface">
+              Gangnam Style
+            </p>
+            <p class="font-label text-[10px] uppercase text-on-surface-variant">
+              YouTube Short
+            </p>
+          </div>
+          <span
+            class="material-symbols-outlined text-on-surface-variant text-sm"
+            >play_circle</span
+          >
+        </button>
+        <button
+          type="button"
+          data-trending-menu-item
+          data-target-id="video-02"
+          class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors border border-transparent hover:border-primary/40 group"
+        >
+          <span
+            data-trending-menu-number
+            class="font-headline text-3xl text-outline-variant group-hover:text-secondary transition-colors w-10 text-center"
+            >02</span
+          >
+          <div class="flex-grow">
+            <p class="font-headline text-sm font-bold text-on-surface">
+              That's Amore
+            </p>
+            <p class="font-label text-[10px] uppercase text-on-surface-variant">
+              YouTube Short
+            </p>
+          </div>
+          <span
+            class="material-symbols-outlined text-on-surface-variant text-sm"
+            >play_circle</span
+          >
+        </button>
+        <button
+          type="button"
+          data-trending-menu-item
+          data-target-id="video-03"
+          class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors border border-transparent hover:border-primary/40 group"
+        >
+          <span
+            data-trending-menu-number
+            class="font-headline text-3xl text-outline-variant group-hover:text-secondary transition-colors w-10 text-center"
+            >03</span
+          >
+          <div class="flex-grow">
+            <p class="font-headline text-sm font-bold text-on-surface">
+              Mull of Kintyre
+            </p>
+            <p class="font-label text-[10px] uppercase text-on-surface-variant">
+              YouTube Short
+            </p>
+          </div>
+          <span
+            class="material-symbols-outlined text-on-surface-variant text-sm"
+            >play_circle</span
+          >
+        </button>
+        <button
+          type="button"
+          data-trending-menu-item
+          data-target-id="video-04"
+          class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors border border-transparent hover:border-primary/40 group"
+        >
+          <span
+            data-trending-menu-number
+            class="font-headline text-3xl text-outline-variant group-hover:text-secondary transition-colors w-10 text-center"
+            >04</span
+          >
+          <div class="flex-grow">
+            <p class="font-headline text-sm font-bold text-on-surface">Top 5</p>
+            <p class="font-label text-[10px] uppercase text-on-surface-variant">
+              YouTube Short
+            </p>
+          </div>
+          <span
+            class="material-symbols-outlined text-on-surface-variant text-sm"
+            >play_circle</span
+          >
+        </button>
+      </div>
+    </div>
+    <main class="pt-20">
+      <!-- Hero Section -->
+      <section
+        class="relative min-h-[680px] md:h-[819px] flex items-start md:items-center pt-10 md:pt-0 overflow-hidden"
+      >
+        <div class="absolute inset-0 z-0">
+          <img
+            alt=""
+            class="w-full h-full object-cover opacity-40 mix-blend-lighten"
+            data-alt="Abstract cinematic visualization of sound waves in electric purple and neon cyan neon lights against a deep black void with light trails"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuATBTRk7OccfWDexGWVa7N81BVOPu_bEg42aweD1Xln5HkLZJYlmNLAeiJ4d777Y2Z03dccr6RxHL4PyG64rYwFpulMX-NDoqhoq0ZI5GjOzL6AmxZghspkwjGfhbMLQSSE7j_FsKowVVNTNVvEv00JDtm3q6MQK9qk2ozUHWlwnCWyw6FDObEHsHrBWY7C90jGWd0cNMfaTfCQYx6a1fMofdal8L0iarakadHCI15sU2DEn01k8b6kFeQYc00rFmCRj7JsazyA_Ck"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-surface via-surface/60 to-transparent"
+          ></div>
+        </div>
+        <div class="relative z-10 w-full max-w-screen-xl mx-auto px-10 md:px-20">
+          <div class="max-w-4xl">
+            <span
+              class="font-label text-tertiary tracking-[0.3em] uppercase text-xl md:text-3xl mb-4 block"
+              >SAMMY J's</span
+            >
+            <h1
+              class="font-headline text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-on-surface mb-6"
+            >
+              SONG OF <br />
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
+                >THE WEEK</span
+              >
+            </h1>
+            <p
+              class="font-body text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
+            >
+              I love listening to lots of different kinds of music. Each week I
+              announce a favourite song I'm listening to. From folk to rock to
+              pop, anything could make it as the lucky favourite.
+            </p>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <a
+                href="#featured-videos"
+                class="inline-flex w-auto justify-center px-8 py-4 bg-gradient-to-r from-primary to-primary-dim rounded-full font-label font-bold uppercase tracking-widest text-on-primary hover:opacity-90 transition-all active:scale-95"
+              >
+                Check It Out
+              </a>
+              <button
+                class="w-auto px-8 py-4 border border-outline-variant/20 rounded-full bg-surface-container-high/40 backdrop-blur-sm font-label font-bold uppercase tracking-widest text-on-surface hover:bg-surface-variant/80 transition-all active:scale-95"
+              >
+                My Top 100 Favorite Songs
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main Content Area -->
+      <section
+        class="py-24 px-8 md:px-16 grid grid-cols-1 md:grid-cols-12 gap-16"
+      >
+        <!-- Top Songs Section -->
+        <div class="md:col-span-7">
+
+          <div
+            id="featured-videos"
+            class="grid grid-cols-1 gap-24 scroll-mt-28"
+          >
+            <!-- Video 1 — Gangnam Style (embed matches YouTube Shorts aspect ~383×680) -->
+            <div
+              id="video-01"
+              data-featured-video-card
+              class="group relative w-full max-w-[383px] mx-auto md:ml-auto md:mr-0 bg-surface-container-highest rounded-xl overflow-hidden border border-primary/20 hover:border-primary/40 hover:scale-[1.02] transition-all duration-500 neon-glow"
+            >
+              <div class="p-6 md:p-8 flex items-start gap-5 md:gap-6">
+                <div
+                  class="font-label text-tertiary text-6xl md:text-7xl leading-none font-bold shrink-0 w-16 md:w-20 text-left"
+                >
+                  01
+                </div>
+                <div class="min-w-0 pt-1">
+                  <h3
+                    class="font-headline text-xl md:text-2xl font-bold text-on-surface truncate"
+                  >
+                    Gangnam Style
+                  </h3>
+                  <p class="font-body text-on-surface-variant text-sm">
+                    YouTube Short
+                  </p>
+                  <a
+                    class="font-label mt-1 inline-flex items-center gap-1 text-xs text-secondary hover:text-secondary-fixed-dim"
+                    href="https://www.youtube.com/shorts/uvGCRqb7CCI"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in YouTube
+                    <span class="material-symbols-outlined text-[14px]"
+                      >open_in_new</span
+                    ></a
+                  >
+                </div>
+              </div>
+              <div
+                class="relative mx-auto w-full max-w-[383px] bg-black aspect-[383/680]"
+              >
+                <iframe
+                  class="absolute inset-0 h-full w-full border-0"
+                  width="383"
+                  height="680"
+                  data-yt-id="uvGCRqb7CCI"
+                  src="about:blank"
+                  title="Sam's Jams - Song of the Week - Gangnam Style"
+                  frameborder="0"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  referrerpolicy="origin"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+            <!-- Video 2 — That's Amore -->
+            <div
+              id="video-02"
+              data-featured-video-card
+              class="group relative w-full max-w-[383px] mx-auto md:ml-auto md:mr-0 bg-surface-container-highest rounded-xl overflow-hidden border border-primary/20 hover:border-primary/40 hover:scale-[1.02] transition-all duration-500 neon-glow"
+            >
+              <div class="p-6 md:p-8 flex items-start gap-5 md:gap-6">
+                <div
+                  class="font-label text-tertiary text-6xl md:text-7xl leading-none font-bold shrink-0 w-16 md:w-20 text-left"
+                >
+                  02
+                </div>
+                <div class="min-w-0 pt-1">
+                  <h3
+                    class="font-headline text-xl md:text-2xl font-bold text-on-surface truncate"
+                  >
+                    That's Amore
+                  </h3>
+                  <p class="font-body text-on-surface-variant text-sm">
+                    YouTube Short
+                  </p>
+                  <a
+                    class="font-label mt-1 inline-flex items-center gap-1 text-xs text-secondary hover:text-secondary-fixed-dim"
+                    href="https://www.youtube.com/shorts/1iQ0pr3fL6M"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in YouTube
+                    <span class="material-symbols-outlined text-[14px]"
+                      >open_in_new</span
+                    ></a
+                  >
+                </div>
+              </div>
+              <div
+                class="relative mx-auto w-full max-w-[383px] bg-black aspect-[383/680]"
+              >
+                <iframe
+                  class="absolute inset-0 h-full w-full border-0"
+                  width="383"
+                  height="680"
+                  data-yt-id="1iQ0pr3fL6M"
+                  src="about:blank"
+                  title="Sam's Jams - Song of the Week - That's Amore"
+                  frameborder="0"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  referrerpolicy="origin"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+            <!-- Video 3 — Mull of Kintyre -->
+            <div
+              id="video-03"
+              data-featured-video-card
+              class="group relative w-full max-w-[383px] mx-auto md:ml-auto md:mr-0 bg-surface-container-highest rounded-xl overflow-hidden border border-primary/20 hover:border-primary/40 hover:scale-[1.02] transition-all duration-500 neon-glow"
+            >
+              <div class="p-6 md:p-8 flex items-start gap-5 md:gap-6">
+                <div
+                  class="font-label text-tertiary text-6xl md:text-7xl leading-none font-bold shrink-0 w-16 md:w-20 text-left"
+                >
+                  03
+                </div>
+                <div class="min-w-0 pt-1">
+                  <h3
+                    class="font-headline text-xl md:text-2xl font-bold text-on-surface truncate"
+                  >
+                    Mull of Kintyre
+                  </h3>
+                  <p class="font-body text-on-surface-variant text-sm">
+                    YouTube Short
+                  </p>
+                  <a
+                    class="font-label mt-1 inline-flex items-center gap-1 text-xs text-secondary hover:text-secondary-fixed-dim"
+                    href="https://www.youtube.com/shorts/ZyKHZLEXBsQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in YouTube
+                    <span class="material-symbols-outlined text-[14px]"
+                      >open_in_new</span
+                    ></a
+                  >
+                </div>
+              </div>
+              <div
+                class="relative mx-auto w-full max-w-[383px] bg-black aspect-[383/680]"
+              >
+                <iframe
+                  class="absolute inset-0 h-full w-full border-0"
+                  width="383"
+                  height="680"
+                  data-yt-id="ZyKHZLEXBsQ"
+                  src="about:blank"
+                  title="Sam's Jams - Song of the Week - Mull of Kintyre"
+                  frameborder="0"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  referrerpolicy="origin"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+            <!-- Video 4 — Top 5 -->
+            <div
+              id="video-04"
+              data-featured-video-card
+              class="group relative w-full max-w-[383px] mx-auto md:ml-auto md:mr-0 bg-surface-container-highest rounded-xl overflow-hidden border border-primary/20 hover:border-primary/40 hover:scale-[1.02] transition-all duration-500 neon-glow"
+            >
+              <div class="p-6 md:p-8 flex items-start gap-5 md:gap-6">
+                <div
+                  class="font-label text-tertiary text-6xl md:text-7xl leading-none font-bold shrink-0 w-16 md:w-20 text-left"
+                >
+                  04
+                </div>
+                <div class="min-w-0 pt-1">
+                  <h3
+                    class="font-headline text-xl md:text-2xl font-bold text-on-surface truncate"
+                  >
+                    Top 5
+                  </h3>
+                  <p class="font-body text-on-surface-variant text-sm">
+                    YouTube Short
+                  </p>
+                  <a
+                    class="font-label mt-1 inline-flex items-center gap-1 text-xs text-secondary hover:text-secondary-fixed-dim"
+                    href="https://www.youtube.com/shorts/fu-HLi67_cU"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in YouTube
+                    <span class="material-symbols-outlined text-[14px]"
+                      >open_in_new</span
+                    ></a
+                  >
+                </div>
+              </div>
+              <div
+                class="relative mx-auto w-full max-w-[383px] bg-black aspect-[383/680]"
+              >
+                <iframe
+                  class="absolute inset-0 h-full w-full border-0"
+                  width="383"
+                  height="680"
+                  data-yt-id="fu-HLi67_cU"
+                  src="about:blank"
+                  title="Sam's Jams - Song of the Week - Top 5"
+                  frameborder="0"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  referrerpolicy="origin"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="mt-20">
+            <div class="max-w-lg mx-auto md:ml-auto md:mr-0">
+              <div
+                class="p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-white/5 grain-overlay"
+              >
+                <p
+                  class="font-label text-xs uppercase tracking-widest text-primary mb-2"
+                >
+                  Sam's Jams
+                </p>
+                <h4 class="font-headline text-xl font-bold mb-4 italic">
+                  "Thanks for visiting! I hope you enjoyed the songs and I'll see
+                  you next weeeeek!"
+                </h4>
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-surface-bright flex items-center justify-center"
+                  >
+                    <span class="material-symbols-outlined text-secondary text-sm"
+                      >music_note</span
+                    >
+                  </div>
+                  <span class="font-label text-xs tracking-widest uppercase"
+                    >Sammy J</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Trending Sidebar (desktop/tablet) -->
+        <div class="hidden md:block md:col-span-4 md:mt-0">
+          <div class="md:sticky md:top-32">
+            <h3
+              class="font-headline text-2xl font-black mb-8 border-l-4 border-secondary pl-4"
+            >
+              SONGS OF THE WEEK
+            </h3>
+            <div class="space-y-4">
+              <button
+                type="button"
+                data-trending-menu-item
+                data-target-id="video-01"
+                class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container border border-primary/30 hover:border-primary/60 transition-colors group"
+              >
+                <span
+                  data-trending-menu-number
+                  class="font-headline text-3xl text-secondary transition-colors w-10 text-center"
+                  >01</span
+                >
+                <div class="flex-grow">
+                  <p class="font-headline text-sm font-bold text-on-surface">
+                    Gangnam Style
+                  </p>
+                  <p
+                    class="font-label text-[10px] uppercase text-on-surface-variant"
+                  >
+                    YouTube Short
+                  </p>
+                </div>
+                <span
+                  class="material-symbols-outlined text-on-surface-variant text-sm"
+                  >play_circle</span
+                >
+              </button>
+              <button
+                type="button"
+                data-trending-menu-item
+                data-target-id="video-02"
+                class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors border border-transparent hover:border-primary/40 group"
+              >
+                <span
+                  data-trending-menu-number
+                  class="font-headline text-3xl text-outline-variant group-hover:text-secondary transition-colors w-10 text-center"
+                  >02</span
+                >
+                <div class="flex-grow">
+                  <p class="font-headline text-sm font-bold text-on-surface">
+                    That's Amore
+                  </p>
+                  <p
+                    class="font-label text-[10px] uppercase text-on-surface-variant"
+                  >
+                    YouTube Short
+                  </p>
+                </div>
+                <span
+                  class="material-symbols-outlined text-on-surface-variant text-sm"
+                  >play_circle</span
+                >
+              </button>
+              <button
+                type="button"
+                data-trending-menu-item
+                data-target-id="video-03"
+                class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors border border-transparent hover:border-primary/40 group"
+              >
+                <span
+                  data-trending-menu-number
+                  class="font-headline text-3xl text-outline-variant group-hover:text-secondary transition-colors w-10 text-center"
+                  >03</span
+                >
+                <div class="flex-grow">
+                  <p class="font-headline text-sm font-bold text-on-surface">
+                    Mull of Kintyre
+                  </p>
+                  <p
+                    class="font-label text-[10px] uppercase text-on-surface-variant"
+                  >
+                    YouTube Short
+                  </p>
+                </div>
+                <span
+                  class="material-symbols-outlined text-on-surface-variant text-sm"
+                  >play_circle</span
+                >
+              </button>
+              <button
+                type="button"
+                data-trending-menu-item
+                data-target-id="video-04"
+                class="w-full text-left flex items-center gap-4 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors border border-transparent hover:border-primary/40 group"
+              >
+                <span
+                  data-trending-menu-number
+                  class="font-headline text-3xl text-outline-variant group-hover:text-secondary transition-colors w-10 text-center"
+                  >04</span
+                >
+                <div class="flex-grow">
+                  <p class="font-headline text-sm font-bold text-on-surface">
+                    Top 5
+                  </p>
+                  <p
+                    class="font-label text-[10px] uppercase text-on-surface-variant"
+                  >
+                    YouTube Short
+                  </p>
+                </div>
+                <span
+                  class="material-symbols-outlined text-on-surface-variant text-sm"
+                  >play_circle</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <section class="px-8 md:px-16 pb-16 mb-16">
+      <div class="mt-20 flex justify-center">
+        <button
+          type="button"
+          onclick="location.href = 'top100.html'"
+          class="group flex items-center gap-4 px-12 py-6 bg-surface-container-high rounded-full border border-primary/20 hover:border-primary transition-all duration-300 cursor-pointer"
+        >
+          <span
+            class="font-label font-bold uppercase tracking-tighter text-xl text-on-surface"
+            >SEE MY TOP 100 FAVORITE SONGS</span
+          >
+          <span
+            class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform"
+            >arrow_forward</span
+          >
+        </button>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer
+      class="bg-slate-950 w-full py-12 px-8 tonal-carving bg-gradient-to-t from-purple-900/10 to-transparent"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto w-full"
+      >
+        <div class="flex flex-col items-center md:items-start gap-4">
+          <span
+            class="text-lg font-bold text-white font-headline tracking-tighter"
+            >SAM'S JAMS</span
+          >
+          <p
+            class="font-label text-xs text-slate-500 uppercase tracking-widest"
+          >
+            © 2026 SAM'S JAMS.
+          </p>
+        </div>
+        <div
+          class="flex flex-wrap justify-center gap-6 font-label uppercase tracking-widest text-xs"
+        >
+          <a
+            class="text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
+            href="#"
+            >YouTube</a
+          >
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        // YouTube embeds can fail on IP hostnames; normalize local dev to localhost.
+        if (
+          location.hostname === "127.0.0.1" ||
+          location.hostname === "[::1]"
+        ) {
+          var target = new URL(location.href);
+          target.hostname = "localhost";
+          location.replace(target.toString());
+          return;
+        }
+
+        document
+          .querySelectorAll("iframe[data-yt-id]")
+          .forEach(function (iframe) {
+            var id = iframe.getAttribute("data-yt-id");
+            if (!id) return;
+
+            var params = new URLSearchParams({
+              feature: "oembed",
+              playsinline: "1",
+              rel: "0",
+              modestbranding: "1",
+              enablejsapi: "1",
+              origin: window.location.origin,
+            });
+
+            iframe.src =
+              "https://www.youtube.com/embed/" +
+              encodeURIComponent(id) +
+              "?" +
+              params.toString();
+          });
+
+        var topNav = document.getElementById("top-nav");
+        var heroSection = document.querySelector("main > section");
+        var mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+        var mobileVideosMenu = document.getElementById("mobile-videos-menu");
+        var mobileVideosMenuPanel = mobileVideosMenu
+          ? mobileVideosMenu.firstElementChild
+          : null;
+        var menuItems = Array.from(
+          document.querySelectorAll("[data-trending-menu-item]"),
+        );
+        var featuredCards = Array.from(
+          document.querySelectorAll("[data-featured-video-card]"),
+        );
+        var lastScrollY = window.scrollY;
+        var navIsHidden = false;
+        var mobileMenuOpen = false;
+
+        function setMobileMenuOpen(open) {
+          if (!mobileVideosMenu || !mobileVideosMenuPanel || !mobileMenuToggle)
+            return;
+          mobileMenuOpen = open;
+          mobileMenuToggle.setAttribute(
+            "aria-expanded",
+            open ? "true" : "false",
+          );
+          mobileVideosMenu.classList.toggle("pointer-events-none", !open);
+          mobileVideosMenuPanel.classList.toggle("opacity-0", !open);
+          mobileVideosMenuPanel.classList.toggle("-translate-y-2", !open);
+          mobileVideosMenuPanel.classList.toggle("scale-[0.98]", !open);
+          mobileVideosMenuPanel.classList.toggle("opacity-100", open);
+          mobileVideosMenuPanel.classList.toggle("translate-y-0", open);
+          mobileVideosMenuPanel.classList.toggle("scale-100", open);
+        }
+
+        function setTopNavHidden(hidden) {
+          if (!topNav || navIsHidden === hidden) return;
+          navIsHidden = hidden;
+          if (hidden) setMobileMenuOpen(false);
+          topNav.classList.toggle("-translate-y-full", hidden);
+          topNav.classList.toggle("opacity-0", hidden);
+          topNav.classList.toggle("translate-y-0", !hidden);
+          topNav.classList.toggle("opacity-100", !hidden);
+          topNav.classList.toggle("pointer-events-none", hidden);
+        }
+
+        function activateMenuItem(activeTargetId) {
+          if (!activeTargetId) return;
+          menuItems.forEach(function (item) {
+            var isActive =
+              item.getAttribute("data-target-id") === activeTargetId;
+            var number = item.querySelector("[data-trending-menu-number]");
+            item.classList.toggle("bg-surface-container", isActive);
+            item.classList.toggle("bg-surface-container-low", !isActive);
+            item.classList.toggle("border-primary/30", isActive);
+            item.classList.toggle("border-transparent", !isActive);
+
+            if (!number) return;
+            number.classList.toggle("text-secondary", isActive);
+            number.classList.toggle("text-outline-variant", !isActive);
+          });
+        }
+
+        function activateCard(activeCard) {
+          featuredCards.forEach(function (card) {
+            var isActive = card === activeCard;
+            card.classList.toggle("ring-2", isActive);
+            card.classList.toggle("ring-primary/40", isActive);
+            card.classList.toggle("border-primary/40", isActive);
+            card.classList.toggle("border-primary/20", !isActive);
+          });
+        }
+
+        function focusVideoCard(card) {
+          card.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        function activateMenuForCard(card) {
+          if (!card) return;
+          var activeTargetId = card.id;
+          if (activeTargetId) {
+            activateMenuItem(activeTargetId);
+            activateCard(card);
+          }
+        }
+
+        function getCardClosestToViewportCenter() {
+          if (!featuredCards.length) return null;
+          var viewportCenter = window.innerHeight / 2;
+          var bestCard = null;
+          var bestDistance = Infinity;
+
+          featuredCards.forEach(function (card) {
+            var rect = card.getBoundingClientRect();
+            var isOnScreen = rect.bottom > 0 && rect.top < window.innerHeight;
+            if (!isOnScreen) return;
+
+            var cardCenter = rect.top + rect.height / 2;
+            var distance = Math.abs(cardCenter - viewportCenter);
+            if (distance < bestDistance) {
+              bestDistance = distance;
+              bestCard = card;
+            }
+          });
+
+          return bestCard;
+        }
+
+        var scrollTicking = false;
+        function syncActiveFromScroll() {
+          if (scrollTicking) return;
+          scrollTicking = true;
+          requestAnimationFrame(function () {
+            var currentY = window.scrollY;
+            var navHeight = topNav ? topNav.offsetHeight : 0;
+            var heroBottom = heroSection
+              ? heroSection.offsetTop + heroSection.offsetHeight - navHeight
+              : 120;
+            var hasPassedHero = currentY > heroBottom;
+            var isScrollingDown = currentY > lastScrollY + 2;
+            var isScrollingUp = currentY < lastScrollY - 2;
+
+            if (!hasPassedHero || currentY <= 0 || isScrollingUp) {
+              setTopNavHidden(false);
+            } else if (isScrollingDown) {
+              setTopNavHidden(true);
+            }
+
+            if (featuredCards.length) {
+              var activeCard =
+                getCardClosestToViewportCenter() || featuredCards[0] || null;
+              activateMenuForCard(activeCard);
+            }
+
+            lastScrollY = currentY;
+            scrollTicking = false;
+          });
+        }
+
+        menuItems.forEach(function (item) {
+          item.addEventListener("click", function () {
+            var targetId = item.getAttribute("data-target-id");
+            if (!targetId) return;
+
+            var targetCard = document.getElementById(targetId);
+            if (!targetCard) return;
+
+            activateMenuItem(targetId);
+            focusVideoCard(targetCard);
+            activateCard(targetCard);
+            setMobileMenuOpen(false);
+          });
+        });
+
+        if (mobileMenuToggle) {
+          mobileMenuToggle.addEventListener("click", function () {
+            setMobileMenuOpen(!mobileMenuOpen);
+          });
+        }
+
+        document.addEventListener("click", function (event) {
+          if (!mobileMenuOpen || !mobileVideosMenuPanel || !mobileMenuToggle)
+            return;
+          var clickTarget = event.target;
+          if (!(clickTarget instanceof Element)) return;
+          var clickedToggle = mobileMenuToggle.contains(clickTarget);
+          var clickedInsideMenu = mobileVideosMenuPanel.contains(clickTarget);
+          if (!clickedToggle && !clickedInsideMenu) {
+            setMobileMenuOpen(false);
+          }
+        });
+
+        window.addEventListener("scroll", syncActiveFromScroll, {
+          passive: true,
+        });
+        window.addEventListener("resize", syncActiveFromScroll);
+
+        if (featuredCards.length) {
+          syncActiveFromScroll();
+        }
+      })();
+    </script>
+  </body>
+</html>

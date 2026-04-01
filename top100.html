@@ -1,0 +1,985 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Manrope:wght@400;500;600&amp;family=Space_Grotesk:wght@300;400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-dim": "#00d4ec",
+              "primary-fixed": "#cb80ff",
+              surface: "#0e0e13",
+              "inverse-surface": "#fbf8ff",
+              "inverse-primary": "#9100e0",
+              "on-tertiary-fixed": "#37001b",
+              "secondary-fixed": "#26e6ff",
+              primary: "#d394ff",
+              "on-primary-container": "#39005c",
+              "on-tertiary-container": "#000000",
+              "on-background": "#f8f5fd",
+              error: "#ff6e84",
+              tertiary: "#ff68a7",
+              "primary-fixed-dim": "#c26bff",
+              background: "#0e0e13",
+              "surface-dim": "#0e0e13",
+              "on-secondary-fixed-variant": "#005964",
+              "tertiary-dim": "#e10080",
+              "tertiary-fixed-dim": "#ff74ac",
+              "tertiary-container": "#fc0d90",
+              "on-secondary": "#004d57",
+              "on-primary-fixed": "#000000",
+              "on-tertiary-fixed-variant": "#750040",
+              "outline-variant": "#48474d",
+              "primary-dim": "#aa30fa",
+              "surface-container-low": "#131318",
+              "secondary-fixed-dim": "#00d7f0",
+              outline: "#76747b",
+              "on-primary-fixed-variant": "#470071",
+              "secondary-container": "#006875",
+              "surface-container": "#19191f",
+              "on-error-container": "#ffb2b9",
+              "on-surface-variant": "#acaab1",
+              "on-tertiary": "#460024",
+              "tertiary-fixed": "#ff8db7",
+              "on-error": "#490013",
+              "primary-container": "#cb80ff",
+              "on-surface": "#f8f5fd",
+              "surface-variant": "#25252c",
+              secondary: "#00e3fd",
+              "surface-container-lowest": "#000000",
+              "on-primary": "#4a0076",
+              "surface-container-high": "#1f1f26",
+              "surface-bright": "#2c2b33",
+              "error-container": "#a70138",
+              "inverse-on-surface": "#55545a",
+              "error-dim": "#d73357",
+              "on-secondary-container": "#e8fbff",
+              "surface-tint": "#d394ff",
+              "surface-container-highest": "#25252c",
+              "on-secondary-fixed": "#003a42",
+            },
+            fontFamily: {
+              headline: ["Epilogue"],
+              body: ["Manrope"],
+              label: ["Space Grotesk"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .tonal-carving {
+        background: linear-gradient(
+          180deg,
+          rgba(14, 14, 19, 1) 0%,
+          rgba(25, 25, 31, 1) 100%
+        );
+      }
+      .text-glow {
+        text-shadow: 0 0 15px rgba(211, 148, 255, 0.4);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary"
+  >
+    <!-- TopNavBar -->
+    <nav
+      id="top-nav"
+      class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_50px_-12px_rgba(138,43,226,0.3)] h-20 w-full translate-y-0 opacity-100 [transition-property:transform,opacity] duration-300 ease-out"
+    >
+      <div
+        class="w-full max-w-screen-xl mx-auto h-full px-10 md:px-20 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-12">
+          <span
+            class="text-2xl font-black italic tracking-tighter text-purple-500 font-headline"
+            >SAM'S JAMS</span
+          >
+          <div
+            class="hidden md:flex items-center gap-8 font-label text-xs uppercase tracking-widest"
+          >
+            <a
+              class="text-slate-400 hover:text-white transition-colors border-b-2 border-transparent pb-1"
+              href="index.html"
+              >Song of the Week</a
+            >
+            <a
+              class="text-purple-400 border-b-2 border-purple-500 pb-1"
+              href="top100.html"
+              >Top 100</a
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <button
+            id="mobile-menu-toggle"
+            type="button"
+            aria-label="Toggle page menu"
+            aria-expanded="false"
+            aria-controls="mobile-page-menu"
+            class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/15 text-on-surface hover:bg-surface-variant/80 transition-colors"
+          >
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div
+      id="mobile-page-menu"
+      class="md:hidden fixed top-20 left-0 right-0 z-40 px-4 pt-3 pointer-events-none"
+    >
+      <div
+        class="rounded-2xl border border-white/10 bg-surface-container-high/95 backdrop-blur-xl shadow-[0_16px_48px_-18px_rgba(138,43,226,0.45)] p-3 space-y-2 opacity-0 -translate-y-2 scale-[0.98] origin-top [transition-property:transform,opacity] duration-200 ease-out"
+      >
+        <a
+          href="index.html"
+          class="block px-4 py-3 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-colors font-label text-xs uppercase tracking-widest"
+          >Song of the Week</a
+        >
+        <p
+          class="px-4 py-3 rounded-lg bg-surface-container border border-primary/30 text-purple-300 font-label text-xs uppercase tracking-widest"
+        >
+          Top 100
+        </p>
+      </div>
+    </div>
+    <main class="pt-20">
+      <!-- Hero Section -->
+      <section
+        class="relative h-[614px] flex items-end px-8 pb-16 overflow-hidden"
+      >
+        <div class="absolute inset-0 z-0">
+          <img
+            alt=""
+            class="w-full h-full object-cover opacity-40 mix-blend-luminosity"
+            data-alt="dramatic wide shot of a concert stage with purple lasers and heavy smoke in a dark arena atmosphere"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuHSikHcUq_-e1MbpULekB310w9oBB-V21UBZtHHykmFH1lStNUVkeDNut_af6GzCBrZxCRaAbHC-4yY3z3zTPBI7Bepqs2NFxKIOTioVwpFxSYng0ZtzZXNZWiBFaNE9nQK_1JI6p7kgqoJsLiAvEDF1cFujJ7McloBKZhuWNg7MYndwIfEAMrCWeZZhxQ9DBKyIdQ-iOul2T-MstibW5KYvUecTxyvhja3q7CCYCa-4u9e4KB1vzC4ZSGjDaLlAXQbl9hMn7eA4"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-transparent"
+          ></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto w-full">
+          <p
+            class="font-label text-tertiary uppercase tracking-[0.3em] mb-4 text-glow"
+          >
+            Streaming Live Performance
+          </p>
+          <h1
+            class="font-headline text-7xl md:text-9xl font-black italic tracking-tighter leading-none mb-6"
+          >
+            BIG RIG RADIO <br />
+            <span class="text-primary">TOP 100</span>
+          </h1>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <button
+              class="bg-gradient-to-r from-primary to-primary-dim text-on-primary font-label font-bold py-4 px-8 rounded-full flex items-center gap-2 hover:opacity-90 transition-opacity"
+            >
+              <span
+                class="material-symbols-outlined"
+                data-icon="play_arrow"
+                data-weight="fill"
+                >play_arrow</span
+              >
+              PLAY ALL
+            </button>
+            <button
+              class="border border-outline-variant/20 text-on-surface font-label font-bold py-4 px-8 rounded-full hover:bg-white/5 transition-all"
+            >
+              FOLLOW CHART
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Content Filter Controls -->
+      <section
+        class="px-8 py-12 max-w-7xl mx-auto border-b border-outline-variant/10"
+      >
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
+        >
+          <div class="flex flex-wrap gap-3">
+            <button
+              class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface font-label text-xs border border-primary/20"
+            >
+              BY RANK
+            </button>
+            <button
+              class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label text-xs hover:bg-surface-container-high transition-colors"
+            >
+              GENRE
+            </button>
+            <button
+              class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label text-xs hover:bg-surface-container-high transition-colors"
+            >
+              ARTIST
+            </button>
+            <button
+              class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label text-xs hover:bg-surface-container-high transition-colors"
+            >
+              A-Z
+            </button>
+          </div>
+          <div
+            class="flex items-center gap-6 font-label text-xs text-on-surface-variant tracking-widest uppercase"
+          >
+            <span>Updated: Today, 12:00 PM</span>
+            <span class="flex items-center gap-2"
+              ><span
+                class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#00e3fd]"
+              ></span>
+              1.2M LISTENERS</span
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Rankings List -->
+      <section class="px-8 py-20 max-w-7xl mx-auto space-y-12">
+        <!-- Item 1 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-tertiary italic font-black opacity-80 min-w-[120px]"
+            >01</span
+          >
+          <div
+            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+          >
+            <img
+              alt=""
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              data-alt="close-up of a high-end chrome DJ turntable under sharp violet neon light highlights"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy5lWBsheZME4gS8HwAykxtzQYDudOH6c5XNMgNTn0c8JAowLl6KoaVnto7KGGeFFm8-YUtAfqikmSwN6hgBX2_4sZNGFVkQpf4Tmq5x1ZJvocVL_uF6E-NBMks_HJnC7oum1DBatFT8eg2Vha_RjtlMlKZGY0Upv6hBZ_YqwYtGBijlGpV56mZRXrscY5Sc7mJx4XFalST2OC_Qmr7s1_ouSgrWAbihcNp9BNaqiUTvk5hL5UIQbeX2EqV_fOQ8FZEMeSyOCjkZk"
+            />
+            <div
+              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <span
+                class="material-symbols-outlined text-white text-5xl"
+                data-icon="play_circle"
+                data-weight="fill"
+                >play_circle</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                NEON WHISPERS
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                ELECTRA PULSE • SYNTHWAVE
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >PULSE RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-4 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                  <div class="w-1 h-3 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                </div>
+              </div>
+              <button
+                class="text-tertiary hover:scale-110 transition-transform"
+              >
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 2 (Alternate Tone) -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >02</span
+          >
+          <div
+            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+          >
+            <img
+              alt=""
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              data-alt="silhouette of a female vocalist singing into a vintage studio microphone with blue backlighting"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmJGlTQqu1DnpqHk2aTJutI90sP-LejmzCiAFv7VS8WRKUXLfUmHLH28pQLVYuGtuLO3jV8W53sQtHvqMTsjczlm7wu4hdnSDidPy2XjV-kz9ayZU4mmorPYly-r67wxhfZf-g4cWkPwru7Vi86GjeupqsbOQIysohcHBLGbHpc9dmHWDXlopKcFT1_jQaSzPtO5KfWw_UCMy-3e1GYjdPNNhWFYvu02q_qg-WudJ-F_FdwYJ_VJfLxijKgWxYJmnYCFV-bsHFdzI"
+            />
+            <div
+              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <span
+                class="material-symbols-outlined text-white text-5xl"
+                data-icon="play_circle"
+                data-weight="fill"
+                >play_circle</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                MIDNIGHT VELVET
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                THE ECHOES • FUTURE SOUL
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >PULSE RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-5 bg-secondary"></div>
+                  <div class="w-1 h-6 bg-secondary"></div>
+                  <div class="w-1 h-4 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >03</span
+          >
+          <div
+            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+          >
+            <img
+              alt=""
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              data-alt="abstract crowd shot at a festival with bright neon yellow and purple light streaks crossing the frame"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBohUMVtxTMEr79DPZwPHp3yhR0Tywo1S_Wez-CUHqzkpoqjgHY8wlST28qr0O8jOQBzPEgyhoodaM5yEg4ozdgyT6RZVJH2zgyGsxFPH0jrDctDMEV-j6hDFMMyP9rLSzMX0x-bTD8spyOxk9MwKROFzwRmCkMkAWXfjmXsB5m31NAsjMiyCuge4LuDncMPLGaKxp2NR5RZQGJF30Cw-DzfXTmYo6Or1tLFupMfY26C8dKtG7c4my63ke6iRWu65UWq2crcP26HVs"
+            />
+            <div
+              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <span
+                class="material-symbols-outlined text-white text-5xl"
+                data-icon="play_circle"
+                data-weight="fill"
+                >play_circle</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                KINETIC ENERGY
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                SONIC BOOM • INDUSTRIAL TECHNO
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >PULSE RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 4 (Even Row Shifting) -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >04</span
+          >
+          <div
+            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+          >
+            <img
+              alt=""
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              data-alt="studio condenser microphone on a stand with soft pink ambient room light"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBou9fNt1MhO8QhcAtVETdeLeSo-tLnI5SFF1ErG1U2HkA100eVaD0opp4lthCyvlkxGD3bEYJNuW8WSPFmCWv5HqqCgYUi6ZjQ-Qw5C0SkckTU2PL-Glru9TXZP-smN9GaQcqhZehTdvLGvvY6KwO-Dnxav1DPBjUKQQl6TIALyEregWc7-R-UqMsAC5_orj2iKYj2hBE00bWz6zTCg6GBP87179k4nBvl7il6375-DWWXc7hpmyH_hMk4jbUQlKgXhV7uXyBzaUU"
+            />
+            <div
+              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <span
+                class="material-symbols-outlined text-white text-5xl"
+                data-icon="play_circle"
+                data-weight="fill"
+                >play_circle</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                SOFT FOCUS
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                LO-FI DREAMS • CHILL HOP
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >PULSE RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-1 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Batch repeat simple placeholders for 5-15 to show list density -->
+        <div class="space-y-4 opacity-70">
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >05</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">DIGITAL RAIN</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  NEON DRIVER
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >06</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">CIRCUIT BREAKER</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  VOLT AGENT
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >07</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">PLASMA CORE</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  THE REACTORS
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-tertiary"
+                data-icon="favorite"
+                data-weight="fill"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >08</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">VOID WALKER</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  ZERO GRAVITY
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >09</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">SYNTHETIC SKY</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  AURA
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >10</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">RESONANCE</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  ORBITAL
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-tertiary"
+                data-icon="favorite"
+                data-weight="fill"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >11</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">QUARTZ CLOCK</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  TIMELOOP
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >12</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">OXYGEN</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  FRESH CUT
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >13</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">LASER FOCUS</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  THE PRECISION
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >14</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">HYPERSPACE</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  WARP DRIVE
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-tertiary"
+                data-icon="favorite"
+                data-weight="fill"
+                >favorite</span
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+          >
+            <span
+              class="font-headline text-4xl text-outline-variant min-w-[80px]"
+              >15</span
+            >
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <h4 class="font-headline text-xl font-bold">GAMMA RAY</h4>
+                <p
+                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
+                >
+                  NUCLEUS
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Load More Action -->
+      <div class="flex justify-center py-20">
+        <button class="group flex flex-col items-center gap-4">
+          <span
+            class="font-label text-xs tracking-[0.5em] text-on-surface-variant group-hover:text-primary transition-colors"
+            >SEE THE FULL 100</span
+          >
+          <span
+            class="material-symbols-outlined text-4xl animate-bounce text-primary"
+            data-icon="keyboard_double_arrow_down"
+            >keyboard_double_arrow_down</span
+          >
+        </button>
+      </div>
+    </main>
+    <!-- Footer Navigation Shell -->
+    <footer class="bg-slate-950 tonal-carving py-12 px-8 mt-20">
+      <div
+        class="flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto w-full"
+      >
+        <div class="text-left">
+          <span
+            class="text-lg font-bold text-white font-['Space_Grotesk'] uppercase tracking-widest"
+            >SAM'S JAMS</span
+          >
+          <p
+            class="text-[10px] text-slate-500 font-['Space_Grotesk'] uppercase tracking-widest mt-2"
+          >
+            © 2024 SAM'S JAMS. THE NEON PULSE.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+          <a
+            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
+            href="#"
+            >Instagram</a
+          >
+          <a
+            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
+            href="#"
+            >Twitter</a
+          >
+          <a
+            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
+            href="#"
+            >YouTube</a
+          >
+          <a
+            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
+            href="#"
+            >Spotify</a
+          >
+          <a
+            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
+            href="#"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </footer>
+    <!-- Mobile Bottom Navigation (Hidden on Web) -->
+    <nav
+      class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-bright/80 backdrop-blur-xl border-t border-white/5 flex justify-around items-center z-50"
+    >
+      <a
+        class="flex flex-col items-center gap-1 text-on-surface-variant"
+        href="index.html"
+      >
+        <span class="material-symbols-outlined text-xl" data-icon="home"
+          >home</span
+        >
+        <span class="text-[10px] font-label">HOME</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-primary" href="#">
+        <span
+          class="material-symbols-outlined text-xl"
+          data-icon="leaderboard"
+          data-weight="fill"
+          >leaderboard</span
+        >
+        <span class="text-[10px] font-label">TOP 100</span>
+      </a>
+      <a
+        class="flex flex-col items-center gap-1 text-on-surface-variant"
+        href="#"
+      >
+        <span class="material-symbols-outlined text-xl" data-icon="explore"
+          >explore</span
+        >
+        <span class="text-[10px] font-label">EXPLORE</span>
+      </a>
+      <a
+        class="flex flex-col items-center gap-1 text-on-surface-variant"
+        href="#"
+      >
+        <span class="material-symbols-outlined text-xl" data-icon="settings"
+          >settings</span
+        >
+        <span class="text-[10px] font-label">SETTINGS</span>
+      </a>
+    </nav>
+    <script>
+      (function () {
+        var topNav = document.getElementById("top-nav");
+        var heroSection = document.querySelector("main > section");
+        var mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+        var mobilePageMenu = document.getElementById("mobile-page-menu");
+        var mobilePageMenuPanel = mobilePageMenu
+          ? mobilePageMenu.firstElementChild
+          : null;
+        var lastScrollY = window.scrollY;
+        var navIsHidden = false;
+        var mobileMenuOpen = false;
+
+        function setMobileMenuOpen(open) {
+          if (!mobilePageMenu || !mobilePageMenuPanel || !mobileMenuToggle) return;
+          mobileMenuOpen = open;
+          mobileMenuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+          mobilePageMenu.classList.toggle("pointer-events-none", !open);
+          mobilePageMenuPanel.classList.toggle("opacity-0", !open);
+          mobilePageMenuPanel.classList.toggle("-translate-y-2", !open);
+          mobilePageMenuPanel.classList.toggle("scale-[0.98]", !open);
+          mobilePageMenuPanel.classList.toggle("opacity-100", open);
+          mobilePageMenuPanel.classList.toggle("translate-y-0", open);
+          mobilePageMenuPanel.classList.toggle("scale-100", open);
+        }
+
+        function setTopNavHidden(hidden) {
+          if (!topNav || navIsHidden === hidden) return;
+          navIsHidden = hidden;
+          if (hidden) setMobileMenuOpen(false);
+          topNav.classList.toggle("-translate-y-full", hidden);
+          topNav.classList.toggle("opacity-0", hidden);
+          topNav.classList.toggle("translate-y-0", !hidden);
+          topNav.classList.toggle("opacity-100", !hidden);
+          topNav.classList.toggle("pointer-events-none", hidden);
+        }
+
+        function syncNavFromScroll() {
+          var currentY = window.scrollY;
+          var navHeight = topNav ? topNav.offsetHeight : 0;
+          var heroBottom = heroSection
+            ? heroSection.offsetTop + heroSection.offsetHeight - navHeight
+            : 120;
+          var hasPassedHero = currentY > heroBottom;
+          var isScrollingDown = currentY > lastScrollY + 2;
+          var isScrollingUp = currentY < lastScrollY - 2;
+
+          if (!hasPassedHero || currentY <= 0 || isScrollingUp) {
+            setTopNavHidden(false);
+          } else if (isScrollingDown) {
+            setTopNavHidden(true);
+          }
+
+          lastScrollY = currentY;
+        }
+
+        if (mobileMenuToggle) {
+          mobileMenuToggle.addEventListener("click", function () {
+            setMobileMenuOpen(!mobileMenuOpen);
+          });
+        }
+
+        document.addEventListener("click", function (event) {
+          if (!mobileMenuOpen || !mobilePageMenuPanel || !mobileMenuToggle) return;
+          var clickTarget = event.target;
+          if (!(clickTarget instanceof Element)) return;
+          var clickedToggle = mobileMenuToggle.contains(clickTarget);
+          var clickedInsideMenu = mobilePageMenuPanel.contains(clickTarget);
+          if (!clickedToggle && !clickedInsideMenu) {
+            setMobileMenuOpen(false);
+          }
+        });
+
+        window.addEventListener("scroll", syncNavFromScroll, { passive: true });
+        window.addEventListener("resize", syncNavFromScroll);
+      })();
+    </script>
+  </body>
+</html>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>SAM'S JAMS - THE NEON PULSE</title>
+    <title>SAM'S JAMS - Song of the Week</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Manrope:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
@@ -770,25 +770,36 @@
             class="text-lg font-bold text-white font-headline tracking-tighter"
             >SAM'S JAMS</span
           >
-          <p
-            class="font-label text-xs text-slate-500 uppercase tracking-widest"
+          <div
+            class="font-label text-xs text-slate-500 uppercase tracking-widest flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-8"
           >
-            © 2026 SAM'S JAMS.
-          </p>
+            <p>&copy; <span id="footer-year"></span> SAM'S JAMS.</p>
+
+            <p>
+              <a href="#" class="transition-colors"
+                >YouTube channel</a
+              >
+            </p>
+            <p>
+              Site by
+              <a
+                href="https://vanguardcreative.com.au"
+                class="hover:text-cyan-500 transition-colors"
+                >Vanguard Creative</a
+              >
+            </p>
+          </div>
         </div>
-        <div
-          class="flex flex-wrap justify-center gap-6 font-label uppercase tracking-widest text-xs"
-        >
-          <a
-            class="text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
-            href="#"
-            >YouTube</a
-          >
-        </div>
+
       </div>
     </footer>
     <script>
       (function () {
+        var footerYear = document.getElementById("footer-year");
+        if (footerYear) {
+          footerYear.textContent = String(new Date().getFullYear());
+        }
+
         // YouTube embeds can fail on IP hostnames; normalize local dev to localhost.
         if (
           location.hostname === "127.0.0.1" ||

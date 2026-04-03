@@ -112,16 +112,73 @@
       .text-glow {
         text-shadow: 0 0 15px rgba(211, 148, 255, 0.4);
       }
-      /* Full-colour YouTube embeds on small screens (avoid dim / grey appearance). */
-      @media (max-width: 767px) {
-        .top100-video-embed {
-          color-scheme: light;
-          isolation: isolate;
-        }
-        .top100-video-embed iframe {
-          opacity: 1 !important;
-          filter: grayscale(0) !important;
-          -webkit-filter: grayscale(0) !important;
+      /* YouTube on dark pages: color-scheme helps the iframe player behave; desktop
+         thumbs use md:w-80 — at md:w-48 (192px) play often jumps to youtube.com. */
+      .top100-video-embed {
+        color-scheme: light;
+        isolation: isolate;
+      }
+      .top100-video-embed iframe {
+        opacity: 1 !important;
+        filter: grayscale(0) !important;
+        -webkit-filter: grayscale(0) !important;
+      }
+      /* Expand-on-play: reorder to rank → meta → large video; smooth size + neon edge */
+      .top100-rank-row {
+        transition:
+          transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.45s ease,
+          gap 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+          background-color 0.35s ease;
+      }
+      .top100-rank-row.is-expanded {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.25rem;
+        transform: none !important;
+        border-radius: 1rem;
+        box-shadow:
+          0 0 0 1px rgba(211, 148, 255, 0.22),
+          0 20px 48px -20px rgba(138, 43, 226, 0.28);
+      }
+      .top100-rank-row.is-expanded .top100-rank-num {
+        order: 1;
+      }
+      .top100-rank-row.is-expanded .top100-row-meta {
+        order: 2;
+      }
+      .top100-rank-row.is-expanded .top100-video-embed {
+        order: 3;
+      }
+      .top100-rank-row .top100-video-embed {
+        transition:
+          width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+          max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.45s ease,
+          border-color 0.45s ease;
+      }
+      .top100-rank-row.is-expanded .top100-video-embed {
+        width: 100%;
+        max-width: 56rem;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 40px rgba(170, 48, 250, 0.12);
+        border: 1px solid rgba(211, 148, 255, 0.35);
+      }
+      .top100-video-collapse {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .top100-rank-row.is-expanded .top100-video-collapse {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .top100-rank-row,
+        .top100-rank-row .top100-video-embed,
+        .top100-video-collapse {
+          transition-duration: 0.01ms !important;
         }
       }
       /* Mobile bottom bar: safe area is a separate strip so h-14 row is never clipped. */
@@ -300,14 +357,14 @@
         <!-- Item 1 -->
         <div
           id="top100-first-video"
-          class="group flex scroll-mt-28 flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex scroll-mt-28 flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-tertiary italic font-black opacity-80 min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-tertiary italic font-black opacity-80 min-w-[120px]"
             >01</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -329,9 +386,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -375,14 +441,14 @@
         </div>
         <!-- Item 2 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >02</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -404,9 +470,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -447,14 +522,14 @@
         </div>
         <!-- Item 3 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >03</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -476,9 +551,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -519,14 +603,14 @@
         </div>
         <!-- Item 4 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >04</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -548,9 +632,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -591,14 +684,14 @@
         </div>
         <!-- Item 5 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >05</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -620,9 +713,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -663,14 +765,14 @@
         </div>
         <!-- Item 6 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >06</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -692,9 +794,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -735,14 +846,14 @@
         </div>
         <!-- Item 7 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >07</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -764,9 +875,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -807,14 +927,14 @@
         </div>
         <!-- Item 8 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >08</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -836,9 +956,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -879,14 +1008,14 @@
         </div>
         <!-- Item 9 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >09</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -908,9 +1037,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -951,14 +1089,14 @@
         </div>
         <!-- Item 10 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >10</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -980,9 +1118,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1023,14 +1170,14 @@
         </div>
         <!-- Item 11 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >11</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1052,9 +1199,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1095,14 +1251,14 @@
         </div>
         <!-- Item 12 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >12</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1124,9 +1280,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1167,14 +1332,14 @@
         </div>
         <!-- Item 13 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >13</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1196,9 +1361,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1239,14 +1413,14 @@
         </div>
         <!-- Item 14 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >14</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1268,9 +1442,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1311,14 +1494,14 @@
         </div>
         <!-- Item 15 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >15</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1340,9 +1523,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1383,14 +1575,14 @@
         </div>
         <!-- Item 16 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >16</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1412,9 +1604,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1455,14 +1656,14 @@
         </div>
         <!-- Item 17 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >17</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1484,9 +1685,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1527,14 +1737,14 @@
         </div>
         <!-- Item 18 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >18</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1556,9 +1766,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1599,14 +1818,14 @@
         </div>
         <!-- Item 19 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >19</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1628,9 +1847,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1671,14 +1899,14 @@
         </div>
         <!-- Item 20 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+          class="top100-rank-row group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300 md:hover:translate-x-2"
         >
           <span
-            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            class="top100-rank-num shrink-0 font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
             >20</span
           >
           <div
-            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+            class="top100-video-embed relative w-full md:w-80 aspect-video overflow-hidden rounded-xl bg-black"
           >
             <iframe
               class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
@@ -1700,9 +1928,18 @@
               allowfullscreen
               loading="lazy"
             ></iframe>
+            <button
+              type="button"
+              class="top100-video-collapse absolute top-2 right-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-surface-container-highest/95 text-on-surface shadow-lg backdrop-blur-sm hover:border-primary/40 hover:bg-surface-container-high hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              aria-label="Shrink video"
+            >
+              <span class="material-symbols-outlined text-xl leading-none"
+                >close_fullscreen</span
+              >
+            </button>
           </div>
           <div
-            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+            class="top100-row-meta min-w-0 flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
             <div>
               <h3
@@ -1856,27 +2093,114 @@
           return;
         }
 
-        document.querySelectorAll("iframe[data-yt-id]").forEach(function (iframe) {
-          var id = iframe.getAttribute("data-yt-id");
-          if (!id) return;
+        var top100ExpandedRow = null;
+        var rankingsSection = document.getElementById("top100-rankings");
 
-          var params = new URLSearchParams({
-            feature: "oembed",
-            playsinline: "1",
-            rel: "0",
-            modestbranding: "1",
-            enablejsapi: "1",
-            origin: window.location.origin,
+        document
+          .querySelectorAll("iframe[data-yt-id]")
+          .forEach(function (iframe, ix) {
+            var id = iframe.getAttribute("data-yt-id");
+            if (!id) return;
+            if (!iframe.id) iframe.id = "top100-yt-" + ix;
+
+            var params = new URLSearchParams({
+              feature: "oembed",
+              playsinline: "1",
+              rel: "0",
+              modestbranding: "1",
+              enablejsapi: "1",
+              origin: window.location.origin,
+            });
+
+            iframe.src =
+              "https://www.youtube.com/embed/" +
+              encodeURIComponent(id) +
+              "?" +
+              params.toString();
           });
 
-          iframe.src =
-            "https://www.youtube.com/embed/" +
-            encodeURIComponent(id) +
-            "?" +
-            params.toString();
-        });
+        function initTop100YtPlayers() {
+          if (!window.YT || !window.YT.Player) return;
+          document
+            .querySelectorAll(".top100-rank-row iframe[data-yt-id]")
+            .forEach(function (iframe) {
+              if (iframe.getAttribute("data-yt-player-init")) return;
+              iframe.setAttribute("data-yt-player-init", "1");
+              var row = iframe.closest(".top100-rank-row");
+              if (!row) return;
+              var player = new YT.Player(iframe, {
+                events: {
+                  onStateChange: function (event) {
+                    handleTop100YtStateChange(event, row);
+                  },
+                },
+              });
+              iframe._top100YtPlayer = player;
+            });
+        }
 
-        var rankingsSection = document.getElementById("top100-rankings");
+        function handleTop100YtStateChange(event, row) {
+          if (event.data !== 1) return;
+          if (top100ExpandedRow && top100ExpandedRow !== row) {
+            top100ExpandedRow.classList.remove("is-expanded");
+            var prevIframe = top100ExpandedRow.querySelector(
+              "iframe[data-yt-id]",
+            );
+            if (
+              prevIframe &&
+              prevIframe._top100YtPlayer &&
+              prevIframe._top100YtPlayer.pauseVideo
+            ) {
+              try {
+                prevIframe._top100YtPlayer.pauseVideo();
+              } catch (err) {}
+            }
+          }
+          row.classList.add("is-expanded");
+          top100ExpandedRow = row;
+          requestAnimationFrame(function () {
+            row.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          });
+        }
+
+        var previousYtReady = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function () {
+          if (typeof previousYtReady === "function") previousYtReady();
+          initTop100YtPlayers();
+        };
+
+        if (window.YT && window.YT.Player) {
+          initTop100YtPlayers();
+        } else {
+          var ytApiTag = document.createElement("script");
+          ytApiTag.src = "https://www.youtube.com/iframe_api";
+          var firstScriptEl = document.getElementsByTagName("script")[0];
+          firstScriptEl.parentNode.insertBefore(ytApiTag, firstScriptEl);
+        }
+
+        if (rankingsSection) {
+          rankingsSection.addEventListener("click", function (e) {
+            var t = e.target;
+            if (!(t instanceof Element)) return;
+            var btn = t.closest(".top100-video-collapse");
+            if (!btn || !rankingsSection.contains(btn)) return;
+            e.preventDefault();
+            var row = btn.closest(".top100-rank-row");
+            if (!row) return;
+            row.classList.remove("is-expanded");
+            var viframe = row.querySelector("iframe[data-yt-id]");
+            if (
+              viframe &&
+              viframe._top100YtPlayer &&
+              viframe._top100YtPlayer.pauseVideo
+            ) {
+              try {
+                viframe._top100YtPlayer.pauseVideo();
+              } catch (err2) {}
+            }
+            if (top100ExpandedRow === row) top100ExpandedRow = null;
+          });
+        }
         var navPrevBtn = document.getElementById("top100-nav-prev");
         var navNextBtn = document.getElementById("top100-nav-next");
 

@@ -3,7 +3,10 @@
 <html class="dark" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+      name="viewport"
+    />
     <title>SAM'S JAMS - Song of the Week</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
@@ -122,6 +125,10 @@
         opacity: 0.03;
         pointer-events: none;
         background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAaIUKZlMQC3Mtr_TqqXXIt499BnJNYA8pIuZgalcnMTnoFw7UYbZrefGg_Wq0KHNR_5au1AyTK57ZvUqDJ6Cnni3m-QLzNaAuOc72to1Ao88ma4jKfQWuHg9GSam6Va6XFBoXSsyncQ4GwxKZ7-KsRR9csgMsvHuaoUcEvsVo1X8YKAcvO7W6wQ_g8LPdKX_i7YtvnOG2lSd2Sr9_EfF794Zbs8YcpdMgOWBo81A7p3Dy1kkv7Ih6bzleDCzvbpww2olptLnoMAbs);
+      }
+      .mobile-bot-nav {
+        box-sizing: border-box;
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
       }
     </style>
   </head>
@@ -331,15 +338,22 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <a
                 href="#featured-videos"
-                class="inline-flex w-auto justify-center px-8 py-4 bg-gradient-to-r from-primary to-primary-dim rounded-full font-label font-bold uppercase tracking-widest text-on-primary hover:opacity-90 transition-all active:scale-95"
+                class="inline-flex w-auto justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-primary-dim rounded-full font-label font-bold uppercase tracking-widest text-on-primary hover:opacity-90 transition-all active:scale-95"
               >
                 Check It Out
+                <span class="material-symbols-outlined text-[1.125em] leading-none"
+                  >arrow_downward</span
+                >
               </a>
-              <button
-                class="w-auto px-8 py-4 border border-outline-variant/20 rounded-full bg-surface-container-high/40 backdrop-blur-sm font-label font-bold uppercase tracking-widest text-on-surface hover:bg-surface-variant/80 transition-all active:scale-95"
+              <a
+                href="top100.html"
+                class="inline-flex w-auto justify-center items-center gap-2 px-8 py-4 border border-outline-variant/20 rounded-full bg-surface-container-high/40 backdrop-blur-sm font-label font-bold uppercase tracking-widest text-on-surface hover:bg-surface-variant/80 transition-all active:scale-95"
               >
                 My Top 100 Favorite Songs
-              </button>
+                <span class="material-symbols-outlined text-[1.125em] leading-none"
+                  >arrow_forward</span
+                >
+              </a>
             </div>
           </div>
         </div>
@@ -760,7 +774,7 @@
     </section>
     <!-- Footer -->
     <footer
-      class="bg-slate-950 w-full py-12 px-8 tonal-carving bg-gradient-to-t from-purple-900/10 to-transparent"
+      class="bg-slate-950 w-full pt-12 px-8 pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:py-12 tonal-carving bg-gradient-to-t from-purple-900/10 to-transparent"
     >
       <div
         class="flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto w-full"
@@ -793,6 +807,66 @@
 
       </div>
     </footer>
+    <!-- Mobile Bottom Navigation (Hidden on Web) -->
+    <nav
+      class="mobile-bot-nav md:hidden fixed bottom-0 left-0 right-0 z-50 flex flex-col border-t border-white/5 bg-surface-bright/90 shadow-[0_-4px_24px_rgba(0,0,0,0.25)] backdrop-blur-xl"
+      aria-label="Mobile section navigation"
+    >
+      <div
+        class="flex h-14 shrink-0 items-center justify-around gap-0 px-0.5"
+      >
+        <a
+          class="flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-primary"
+          href="index.html"
+          aria-label="Song of the Week"
+        >
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="music_note"
+            >music_note</span
+          >
+          <span class="font-label text-[10px] leading-tight">SOTW</span>
+        </a>
+        <a
+          class="flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-on-surface-variant"
+          href="top100.html"
+        >
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="leaderboard"
+            data-weight="fill"
+            >leaderboard</span
+          >
+          <span class="font-label text-[10px] leading-tight">TOP 100</span>
+        </a>
+        <button
+          type="button"
+          id="home-nav-prev"
+          class="m-0 flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 border-0 bg-transparent p-0 text-on-surface-variant"
+          aria-label="Previous video"
+        >
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="keyboard_arrow_up"
+            >keyboard_arrow_up</span
+          >
+          <span class="font-label text-[10px] leading-tight">PREV</span>
+        </button>
+        <button
+          type="button"
+          id="home-nav-next"
+          class="m-0 flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 border-0 bg-transparent p-0 text-on-surface-variant"
+          aria-label="Next video"
+        >
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="keyboard_arrow_down"
+            >keyboard_arrow_down</span
+          >
+          <span class="font-label text-[10px] leading-tight">NEXT</span>
+        </button>
+      </div>
+    </nav>
     <script>
       (function () {
         var footerYear = document.getElementById("footer-year");
@@ -938,6 +1012,46 @@
           });
 
           return bestCard;
+        }
+
+        function getCurrentFeaturedVideoIndex() {
+          if (!featuredCards.length) return 0;
+          var viewportMid = window.innerHeight / 2;
+          var bestIdx = 0;
+          var bestDist = Infinity;
+          featuredCards.forEach(function (card, i) {
+            var rect = card.getBoundingClientRect();
+            var mid = rect.top + rect.height / 2;
+            var dist = Math.abs(mid - viewportMid);
+            if (dist < bestDist) {
+              bestDist = dist;
+              bestIdx = i;
+            }
+          });
+          return bestIdx;
+        }
+
+        function goFeaturedVideoByDelta(delta) {
+          if (!featuredCards.length) return;
+          var i = getCurrentFeaturedVideoIndex() + delta;
+          if (i < 0) i = 0;
+          if (i > featuredCards.length - 1) i = featuredCards.length - 1;
+          var card = featuredCards[i];
+          focusVideoCard(card);
+          activateMenuForCard(card);
+        }
+
+        var homeNavPrev = document.getElementById("home-nav-prev");
+        var homeNavNext = document.getElementById("home-nav-next");
+        if (homeNavPrev) {
+          homeNavPrev.addEventListener("click", function () {
+            goFeaturedVideoByDelta(-1);
+          });
+        }
+        if (homeNavNext) {
+          homeNavNext.addEventListener("click", function () {
+            goFeaturedVideoByDelta(1);
+          });
         }
 
         var scrollTicking = false;

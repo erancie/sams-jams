@@ -3,20 +3,24 @@
 <html class="dark" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Manrope:wght@400;500;600&amp;family=Space_Grotesk:wght@300;400;500;700&amp;display=swap"
-      rel="stylesheet"
+    <meta
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+      name="viewport"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
+    <title>SAM'S JAMS - Top 100</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Manrope:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -108,10 +112,27 @@
       .text-glow {
         text-shadow: 0 0 15px rgba(211, 148, 255, 0.4);
       }
+      /* Full-colour YouTube embeds on small screens (avoid dim / grey appearance). */
+      @media (max-width: 767px) {
+        .top100-video-embed {
+          color-scheme: light;
+          isolation: isolate;
+        }
+        .top100-video-embed iframe {
+          opacity: 1 !important;
+          filter: grayscale(0) !important;
+          -webkit-filter: grayscale(0) !important;
+        }
+      }
+      /* Mobile bottom bar: safe area is a separate strip so h-14 row is never clipped. */
+      .mobile-bot-nav {
+        box-sizing: border-box;
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+      }
     </style>
   </head>
   <body
-    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary"
+    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-container"
   >
     <!-- TopNavBar -->
     <nav
@@ -191,11 +212,10 @@
           ></div>
         </div>
         <div class="relative z-10 max-w-7xl mx-auto w-full">
-          <p
-            class="font-label text-tertiary uppercase tracking-[0.3em] mb-4 text-glow"
+          <span
+            class="font-label text-tertiary tracking-[0.3em] uppercase text-xl md:text-3xl mb-4 block"
+            >Sammy J presents</span
           >
-            Streaming Live Performance
-          </p>
           <h1
             class="font-headline text-7xl md:text-9xl font-black italic tracking-tighter leading-none mb-6"
           >
@@ -264,8 +284,11 @@
           </div>
         </div>
       </section>
-      <!-- Rankings List -->
-      <section class="px-8 py-20 max-w-7xl mx-auto space-y-12">
+      <!-- Rankings List (from top100.md) -->
+      <section
+        id="top100-rankings"
+        class="px-8 py-20 max-w-7xl mx-auto space-y-12"
+      >
         <!-- Item 1 -->
         <div
           class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
@@ -275,24 +298,28 @@
             >01</span
           >
           <div
-            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
           >
-            <img
-              alt=""
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-              data-alt="close-up of a high-end chrome DJ turntable under sharp violet neon light highlights"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy5lWBsheZME4gS8HwAykxtzQYDudOH6c5XNMgNTn0c8JAowLl6KoaVnto7KGGeFFm8-YUtAfqikmSwN6hgBX2_4sZNGFVkQpf4Tmq5x1ZJvocVL_uF6E-NBMks_HJnC7oum1DBatFT8eg2Vha_RjtlMlKZGY0Upv6hBZ_YqwYtGBijlGpV56mZRXrscY5Sc7mJx4XFalST2OC_Qmr7s1_ouSgrWAbihcNp9BNaqiUTvk5hL5UIQbeX2EqV_fOQ8FZEMeSyOCjkZk"
-            />
-            <div
-              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <span
-                class="material-symbols-outlined text-white text-5xl"
-                data-icon="play_circle"
-                data-weight="fill"
-                >play_circle</span
-              >
-            </div>
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="AIBv2GEnXlc"
+              src="about:blank"
+              title="Never Tear Us Apart"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
             class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
@@ -301,19 +328,19 @@
               <h3
                 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
-                NEON WHISPERS
+                Never Tear Us Apart
               </h3>
               <p
                 class="font-label text-primary-dim uppercase tracking-widest text-sm"
               >
-                ELECTRA PULSE • SYNTHWAVE
+                INXS
               </p>
             </div>
             <div class="flex items-center gap-8">
               <div class="flex flex-col items-end">
                 <span
                   class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
-                  >PULSE RATING</span
+                  >RIG RADIO RATING</span
                 >
                 <div class="flex gap-0.5 mt-1">
                   <div class="w-1 h-4 bg-primary"></div>
@@ -324,6 +351,7 @@
                 </div>
               </div>
               <button
+                type="button"
                 class="text-tertiary hover:scale-110 transition-transform"
               >
                 <span
@@ -336,7 +364,7 @@
             </div>
           </div>
         </div>
-        <!-- Item 2 (Alternate Tone) -->
+        <!-- Item 2 -->
         <div
           class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
         >
@@ -345,24 +373,28 @@
             >02</span
           >
           <div
-            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
           >
-            <img
-              alt=""
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-              data-alt="silhouette of a female vocalist singing into a vintage studio microphone with blue backlighting"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmJGlTQqu1DnpqHk2aTJutI90sP-LejmzCiAFv7VS8WRKUXLfUmHLH28pQLVYuGtuLO3jV8W53sQtHvqMTsjczlm7wu4hdnSDidPy2XjV-kz9ayZU4mmorPYly-r67wxhfZf-g4cWkPwru7Vi86GjeupqsbOQIysohcHBLGbHpc9dmHWDXlopKcFT1_jQaSzPtO5KfWw_UCMy-3e1GYjdPNNhWFYvu02q_qg-WudJ-F_FdwYJ_VJfLxijKgWxYJmnYCFV-bsHFdzI"
-            />
-            <div
-              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <span
-                class="material-symbols-outlined text-white text-5xl"
-                data-icon="play_circle"
-                data-weight="fill"
-                >play_circle</span
-              >
-            </div>
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="XfR9iY5y94s"
+              src="about:blank"
+              title="Land Down Under"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
             class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
@@ -371,19 +403,19 @@
               <h3
                 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
-                MIDNIGHT VELVET
+                Land Down Under
               </h3>
               <p
                 class="font-label text-secondary uppercase tracking-widest text-sm"
               >
-                THE ECHOES • FUTURE SOUL
+                Men At Work
               </p>
             </div>
             <div class="flex items-center gap-8">
               <div class="flex flex-col items-end">
                 <span
                   class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
-                  >PULSE RATING</span
+                  >RIG RADIO RATING</span
                 >
                 <div class="flex gap-0.5 mt-1">
                   <div class="w-1 h-3 bg-secondary"></div>
@@ -394,6 +426,7 @@
                 </div>
               </div>
               <button
+                type="button"
                 class="text-on-surface-variant hover:text-tertiary transition-colors"
               >
                 <span class="material-symbols-outlined" data-icon="favorite"
@@ -412,24 +445,28 @@
             >03</span
           >
           <div
-            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
           >
-            <img
-              alt=""
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-              data-alt="abstract crowd shot at a festival with bright neon yellow and purple light streaks crossing the frame"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBohUMVtxTMEr79DPZwPHp3yhR0Tywo1S_Wez-CUHqzkpoqjgHY8wlST28qr0O8jOQBzPEgyhoodaM5yEg4ozdgyT6RZVJH2zgyGsxFPH0jrDctDMEV-j6hDFMMyP9rLSzMX0x-bTD8spyOxk9MwKROFzwRmCkMkAWXfjmXsB5m31NAsjMiyCuge4LuDncMPLGaKxp2NR5RZQGJF30Cw-DzfXTmYo6Or1tLFupMfY26C8dKtG7c4my63ke6iRWu65UWq2crcP26HVs"
-            />
-            <div
-              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <span
-                class="material-symbols-outlined text-white text-5xl"
-                data-icon="play_circle"
-                data-weight="fill"
-                >play_circle</span
-              >
-            </div>
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="CnQ8N1KacJc"
+              src="about:blank"
+              title="Time Of Your Life"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
             class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
@@ -438,19 +475,19 @@
               <h3
                 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
-                KINETIC ENERGY
+                Time Of Your Life
               </h3>
               <p
                 class="font-label text-primary-dim uppercase tracking-widest text-sm"
               >
-                SONIC BOOM • INDUSTRIAL TECHNO
+                Green Day
               </p>
             </div>
             <div class="flex items-center gap-8">
               <div class="flex flex-col items-end">
                 <span
                   class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
-                  >PULSE RATING</span
+                  >RIG RADIO RATING</span
                 >
                 <div class="flex gap-0.5 mt-1">
                   <div class="w-1 h-7 bg-primary"></div>
@@ -460,7 +497,7 @@
                   <div class="w-1 h-6 bg-primary"></div>
                 </div>
               </div>
-              <button class="text-tertiary">
+              <button type="button" class="text-tertiary">
                 <span
                   class="material-symbols-outlined"
                   data-icon="favorite"
@@ -471,7 +508,7 @@
             </div>
           </div>
         </div>
-        <!-- Item 4 (Even Row Shifting) -->
+        <!-- Item 4 -->
         <div
           class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
         >
@@ -480,24 +517,28 @@
             >04</span
           >
           <div
-            class="relative w-full md:w-48 aspect-video md:aspect-square overflow-hidden rounded-xl"
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
           >
-            <img
-              alt=""
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-              data-alt="studio condenser microphone on a stand with soft pink ambient room light"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBou9fNt1MhO8QhcAtVETdeLeSo-tLnI5SFF1ErG1U2HkA100eVaD0opp4lthCyvlkxGD3bEYJNuW8WSPFmCWv5HqqCgYUi6ZjQ-Qw5C0SkckTU2PL-Glru9TXZP-smN9GaQcqhZehTdvLGvvY6KwO-Dnxav1DPBjUKQQl6TIALyEregWc7-R-UqMsAC5_orj2iKYj2hBE00bWz6zTCg6GBP87179k4nBvl7il6375-DWWXc7hpmyH_hMk4jbUQlKgXhV7uXyBzaUU"
-            />
-            <div
-              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <span
-                class="material-symbols-outlined text-white text-5xl"
-                data-icon="play_circle"
-                data-weight="fill"
-                >play_circle</span
-              >
-            </div>
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="9Ht5RZpzPqw"
+              src="about:blank"
+              title="All The Small Things"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
             class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
@@ -506,19 +547,19 @@
               <h3
                 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
-                SOFT FOCUS
+                All The Small Things
               </h3>
               <p
                 class="font-label text-secondary uppercase tracking-widest text-sm"
               >
-                LO-FI DREAMS • CHILL HOP
+                Blink-182
               </p>
             </div>
             <div class="flex items-center gap-8">
               <div class="flex flex-col items-end">
                 <span
                   class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
-                  >PULSE RATING</span
+                  >RIG RADIO RATING</span
                 >
                 <div class="flex gap-0.5 mt-1">
                   <div class="w-1 h-2 bg-secondary"></div>
@@ -529,6 +570,7 @@
                 </div>
               </div>
               <button
+                type="button"
                 class="text-on-surface-variant hover:text-tertiary transition-colors"
               >
                 <span class="material-symbols-outlined" data-icon="favorite"
@@ -538,379 +580,1349 @@
             </div>
           </div>
         </div>
-        <!-- Batch repeat simple placeholders for 5-15 to show list density -->
-        <div class="space-y-4 opacity-70">
-          <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+        <!-- Item 5 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >05</span
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >05</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">DIGITAL RAIN</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  NEON DRIVER
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
-              >
-            </div>
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="IwH9YvhPN7c"
+              src="about:blank"
+              title="Circle Of Life"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >06</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">CIRCUIT BREAKER</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  VOLT AGENT
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
+                Circle Of Life
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                Elton John
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
             </div>
           </div>
-          <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+        </div>
+        <!-- Item 6 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >06</span
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >07</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">PLASMA CORE</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  THE REACTORS
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-tertiary"
-                data-icon="favorite"
-                data-weight="fill"
-                >favorite</span
-              >
-            </div>
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="v2AC41dglnM"
+              src="about:blank"
+              title="Thunderstruck"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >08</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">VOID WALKER</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  ZERO GRAVITY
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
+                Thunderstruck
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                AC/DC
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-5 bg-secondary"></div>
+                  <div class="w-1 h-6 bg-secondary"></div>
+                  <div class="w-1 h-4 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
             </div>
           </div>
-          <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+        </div>
+        <!-- Item 7 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >07</span
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >09</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">SYNTHETIC SKY</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  AURA
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
-              >
-            </div>
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="VeYmdHS-iYA"
+              src="about:blank"
+              title="Toca's Miracle"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >10</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">RESONANCE</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  ORBITAL
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-tertiary"
-                data-icon="favorite"
-                data-weight="fill"
-                >favorite</span
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
+                Toca's Miracle
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                Fragma
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
             </div>
           </div>
-          <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+        </div>
+        <!-- Item 8 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >08</span
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >11</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">QUARTZ CLOCK</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  TIMELOOP
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
-              >
-            </div>
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="7iwOFpgNELE"
+              src="about:blank"
+              title="There's A Hero"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >12</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">OXYGEN</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  FRESH CUT
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
+                There's A Hero
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                Billy Gillman
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-1 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
             </div>
           </div>
-          <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+        </div>
+        <!-- Item 9 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >09</span
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >13</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">LASER FOCUS</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  THE PRECISION
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
-              >
-            </div>
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="KQetemT1sWc"
+              src="about:blank"
+              title="Here Comes The Sun"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
           <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >14</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">HYPERSPACE</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  WARP DRIVE
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-tertiary"
-                data-icon="favorite"
-                data-weight="fill"
-                >favorite</span
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
+                Here Comes The Sun
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                The Beatles
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
             </div>
           </div>
-          <div
-            class="flex items-center gap-8 py-6 border-b border-outline-variant/5 hover:opacity-100 transition-opacity"
+        </div>
+        <!-- Item 10 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >10</span
           >
-            <span
-              class="font-headline text-4xl text-outline-variant min-w-[80px]"
-              >15</span
-            >
-            <div class="flex-1 flex justify-between items-center">
-              <div>
-                <h4 class="font-headline text-xl font-bold">GAMMA RAY</h4>
-                <p
-                  class="font-label text-xs tracking-widest text-on-surface-variant uppercase"
-                >
-                  NUCLEUS
-                </p>
-              </div>
-              <span
-                class="material-symbols-outlined text-on-surface-variant"
-                data-icon="favorite"
-                >favorite</span
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="drnBMAEA3AM"
+              src="about:blank"
+              title="Do Re Mi"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
               >
+                Do Re Mi
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                The Sound Of Music
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-1 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 11 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >11</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="-z49FiY-TyI"
+              src="about:blank"
+              title="Summer Lovin'"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Summer Lovin'
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                Grease
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 12 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >12</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="nT63Q_y1xPw"
+              src="about:blank"
+              title="Walking In The Bush"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Walking In The Bush
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                Play School
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-5 bg-secondary"></div>
+                  <div class="w-1 h-6 bg-secondary"></div>
+                  <div class="w-1 h-4 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 13 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >13</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="-NlT-ELVWk0"
+              src="about:blank"
+              title="One Voice"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                One Voice
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                Billy Gillman
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 14 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >14</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="OnFlx2Lnr9Q"
+              src="about:blank"
+              title="That's Amore"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                That's Amore
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                Dean Martin
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-1 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 15 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >15</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="FTQbiNvZqaY"
+              src="about:blank"
+              title="Africa"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Africa
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                Toto
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 16 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >16</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="gdjR2lvIfJ4"
+              src="about:blank"
+              title="Rerwrite The Stars"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Rerwrite The Stars
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                The Greatest Showman
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-5 bg-secondary"></div>
+                  <div class="w-1 h-6 bg-secondary"></div>
+                  <div class="w-1 h-4 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 17 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >17</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="iQI5fdVCvlU"
+              src="about:blank"
+              title="Holy Grail"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Holy Grail
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                Hunters &amp; Collectors
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 18 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >18</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="pgYEJHJXFB4"
+              src="about:blank"
+              title="Tale As Old As Time"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Tale As Old As Time.
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                Beauty &amp; The Beast
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                  <div class="w-1 h-1 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 19 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >19</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="e4q17F1b7X0"
+              src="about:blank"
+              title="Spoon Full Of Sugar"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Spoon Full Of Sugar
+              </h3>
+              <p
+                class="font-label text-primary-dim uppercase tracking-widest text-sm"
+              >
+                Mary Poppins
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-7 bg-primary"></div>
+                  <div class="w-1 h-5 bg-primary"></div>
+                  <div class="w-1 h-6 bg-primary"></div>
+                </div>
+              </div>
+              <button type="button" class="text-tertiary">
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="favorite"
+                  data-weight="fill"
+                  >favorite</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 20 -->
+        <div
+          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-surface-container-low p-6 rounded-2xl hover:bg-surface-container transition-colors duration-300"
+        >
+          <span
+            class="font-headline text-8xl text-outline-variant italic font-black min-w-[120px]"
+            >20</span
+          >
+          <div
+            class="top100-video-embed relative w-full md:w-48 aspect-video overflow-hidden rounded-xl bg-black"
+          >
+            <iframe
+              class="absolute inset-0 h-full w-full border-0 grayscale-0 opacity-100"
+              width="560"
+              height="315"
+              data-yt-id="9bZkp7q19f0"
+              src="about:blank"
+              title="Gangnam Style"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              referrerpolicy="origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full"
+          >
+            <div>
+              <h3
+                class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1"
+              >
+                Gangnam Style
+              </h3>
+              <p
+                class="font-label text-secondary uppercase tracking-widest text-sm"
+              >
+                Psy
+              </p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col items-end">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest"
+                  >RIG RADIO RATING</span
+                >
+                <div class="flex gap-0.5 mt-1">
+                  <div class="w-1 h-3 bg-secondary"></div>
+                  <div class="w-1 h-5 bg-secondary"></div>
+                  <div class="w-1 h-6 bg-secondary"></div>
+                  <div class="w-1 h-4 bg-secondary"></div>
+                  <div class="w-1 h-2 bg-secondary"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <span class="material-symbols-outlined" data-icon="favorite"
+                  >favorite</span
+                >
+              </button>
             </div>
           </div>
         </div>
       </section>
-      <!-- Load More Action -->
-      <div class="flex justify-center py-20">
-        <button class="group flex flex-col items-center gap-4">
-          <span
-            class="font-label text-xs tracking-[0.5em] text-on-surface-variant group-hover:text-primary transition-colors"
-            >SEE THE FULL 100</span
-          >
-          <span
-            class="material-symbols-outlined text-4xl animate-bounce text-primary"
-            data-icon="keyboard_double_arrow_down"
-            >keyboard_double_arrow_down</span
-          >
-        </button>
-      </div>
     </main>
-    <!-- Footer Navigation Shell -->
-    <footer class="bg-slate-950 tonal-carving py-12 px-8 mt-20">
+    <!-- Footer -->
+    <footer
+      class="bg-slate-950 w-full pt-12 px-8 pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:py-12 tonal-carving bg-gradient-to-t from-purple-900/10 to-transparent"
+    >
       <div
         class="flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto w-full"
       >
-        <div class="text-left">
+        <div class="flex flex-col items-center md:items-start gap-4">
           <span
-            class="text-lg font-bold text-white font-['Space_Grotesk'] uppercase tracking-widest"
+            class="text-lg font-bold text-white font-headline tracking-tighter"
             >SAM'S JAMS</span
           >
-          <p
-            class="text-[10px] text-slate-500 font-['Space_Grotesk'] uppercase tracking-widest mt-2"
+          <div
+            class="font-label text-xs text-slate-500 uppercase tracking-widest flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-8"
           >
-            © 2024 SAM'S JAMS. Song of the Week.
-          </p>
-          <p
-            class="text-[10px] text-slate-500 font-['Space_Grotesk'] uppercase tracking-widest mt-2"
-          >
-            Site by <a href="https://vanguardcreative.com.au" class="text-cyan-400 hover:text-cyan-500 transition-colors"></a>Vanguard Creative</a>
-          </p>
+            <p>&copy; <span id="footer-year"></span> SAM'S JAMS.</p>
+
+            <p>
+              <a href="#" class="transition-colors"
+                >YouTube channel</a
+              >
+            </p>
+            <p>
+              Site by
+              <a
+                href="https://vanguardcreative.com.au"
+                class="hover:text-cyan-500 transition-colors"
+                >Vanguard Creative</a
+              >
+            </p>
+          </div>
         </div>
-        <div class="flex flex-wrap justify-center gap-6">
-          <a
-            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
-            href="#"
-            >Instagram</a
-          >
-          <a
-            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
-            href="#"
-            >Twitter</a
-          >
-          <a
-            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
-            href="#"
-            >YouTube</a
-          >
-          <a
-            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
-            href="#"
-            >Spotify</a
-          >
-          <a
-            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
-            href="#"
-            >Privacy Policy</a
-          >
-          <a
-            class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-cyan-400 transition-colors hover:translate-x-1 duration-200"
-            href="#"
-            >Contact</a
-          >
-        </div>
+
       </div>
     </footer>
     <!-- Mobile Bottom Navigation (Hidden on Web) -->
     <nav
-      class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-bright/80 backdrop-blur-xl border-t border-white/5 flex justify-around items-center z-50"
+      class="mobile-bot-nav md:hidden fixed bottom-0 left-0 right-0 z-50 flex flex-col border-t border-white/5 bg-surface-bright/90 shadow-[0_-4px_24px_rgba(0,0,0,0.25)] backdrop-blur-xl"
+      aria-label="Mobile section navigation"
     >
-      <a
-        class="flex flex-col items-center gap-1 text-on-surface-variant"
-        href="index.html"
+      <div
+        class="flex h-14 shrink-0 items-center justify-around gap-0 px-0.5"
       >
-        <span class="material-symbols-outlined text-xl" data-icon="home"
-          >home</span
+        <a
+          class="flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-on-surface-variant"
+          href="index.html"
+          aria-label="Song of the Week"
         >
-        <span class="text-[10px] font-label">HOME</span>
-      </a>
-      <a class="flex flex-col items-center gap-1 text-primary" href="#">
-        <span
-          class="material-symbols-outlined text-xl"
-          data-icon="leaderboard"
-          data-weight="fill"
-          >leaderboard</span
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="music_note"
+            >music_note</span
+          >
+          <span class="font-label text-[10px] leading-tight">SOTW</span>
+        </a>
+        <a
+          class="flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-primary"
+          href="#"
         >
-        <span class="text-[10px] font-label">TOP 100</span>
-      </a>
-      <a
-        class="flex flex-col items-center gap-1 text-on-surface-variant"
-        href="#"
-      >
-        <span class="material-symbols-outlined text-xl" data-icon="explore"
-          >explore</span
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="leaderboard"
+            data-weight="fill"
+            >leaderboard</span
+          >
+          <span class="font-label text-[10px] leading-tight">TOP 100</span>
+        </a>
+        <button
+          type="button"
+          id="top100-nav-prev"
+          class="m-0 flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 border-0 bg-transparent p-0 text-on-surface-variant"
+          aria-label="Previous video"
         >
-        <span class="text-[10px] font-label">EXPLORE</span>
-      </a>
-      <a
-        class="flex flex-col items-center gap-1 text-on-surface-variant"
-        href="#"
-      >
-        <span class="material-symbols-outlined text-xl" data-icon="settings"
-          >settings</span
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="keyboard_arrow_up"
+            >keyboard_arrow_up</span
+          >
+          <span class="font-label text-[10px] leading-tight">PREV</span>
+        </button>
+        <button
+          type="button"
+          id="top100-nav-next"
+          class="m-0 flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 border-0 bg-transparent p-0 text-on-surface-variant"
+          aria-label="Next video"
         >
-        <span class="text-[10px] font-label">SETTINGS</span>
-      </a>
+          <span
+            class="material-symbols-outlined shrink-0 text-xl leading-none"
+            data-icon="keyboard_arrow_down"
+            >keyboard_arrow_down</span
+          >
+          <span class="font-label text-[10px] leading-tight">NEXT</span>
+        </button>
+      </div>
     </nav>
     <script>
       (function () {
+        var footerYear = document.getElementById("footer-year");
+        if (footerYear) {
+          footerYear.textContent = String(new Date().getFullYear());
+        }
+
+        // Same YouTube embed behavior as index.html (data-yt-id → youtube.com/embed/…).
+        if (
+          location.hostname === "127.0.0.1" ||
+          location.hostname === "[::1]"
+        ) {
+          var ytRedirect = new URL(location.href);
+          ytRedirect.hostname = "localhost";
+          location.replace(ytRedirect.toString());
+          return;
+        }
+
+        document.querySelectorAll("iframe[data-yt-id]").forEach(function (iframe) {
+          var id = iframe.getAttribute("data-yt-id");
+          if (!id) return;
+
+          var params = new URLSearchParams({
+            feature: "oembed",
+            playsinline: "1",
+            rel: "0",
+            modestbranding: "1",
+            enablejsapi: "1",
+            origin: window.location.origin,
+          });
+
+          iframe.src =
+            "https://www.youtube.com/embed/" +
+            encodeURIComponent(id) +
+            "?" +
+            params.toString();
+        });
+
+        var rankingsSection = document.getElementById("top100-rankings");
+        var navPrevBtn = document.getElementById("top100-nav-prev");
+        var navNextBtn = document.getElementById("top100-nav-next");
+
+        function getTop100Rows() {
+          if (!rankingsSection) return [];
+          return Array.prototype.slice.call(
+            rankingsSection.querySelectorAll(":scope > div"),
+          );
+        }
+
+        function getCurrentTop100RowIndex(rows) {
+          if (!rows.length) return 0;
+          var viewportMid = window.innerHeight / 2;
+          var bestIdx = 0;
+          var bestDist = Infinity;
+          for (var i = 0; i < rows.length; i++) {
+            var rect = rows[i].getBoundingClientRect();
+            var rowMid = rect.top + rect.height / 2;
+            var dist = Math.abs(rowMid - viewportMid);
+            if (dist < bestDist) {
+              bestDist = dist;
+              bestIdx = i;
+            }
+          }
+          return bestIdx;
+        }
+
+        function scrollToTop100RowIndex(rows, index) {
+          if (index < 0 || index >= rows.length) return;
+          rows[index].scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+
+        function goTop100VideoByDelta(delta) {
+          var rows = getTop100Rows();
+          if (!rows.length) return;
+          var nextIndex = getCurrentTop100RowIndex(rows) + delta;
+          if (nextIndex < 0) nextIndex = 0;
+          if (nextIndex > rows.length - 1) nextIndex = rows.length - 1;
+          scrollToTop100RowIndex(rows, nextIndex);
+        }
+
+        if (navPrevBtn) {
+          navPrevBtn.addEventListener("click", function () {
+            goTop100VideoByDelta(-1);
+          });
+        }
+        if (navNextBtn) {
+          navNextBtn.addEventListener("click", function () {
+            goTop100VideoByDelta(1);
+          });
+        }
+
         var topNav = document.getElementById("top-nav");
         var heroSection = document.querySelector("main > section");
         var mobileMenuToggle = document.getElementById("mobile-menu-toggle");

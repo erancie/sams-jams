@@ -123,7 +123,7 @@
         filter: grayscale(0) !important;
         -webkit-filter: grayscale(0) !important;
       }
-      /* Expand-on-play: reorder to rank → meta → large video; smooth size + neon edge */
+      /* Expand-on-play (lg+ only, ≥1024px): reorder + large video + neon edge */
       .top100-rank-row {
         transition:
           transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
@@ -131,54 +131,58 @@
           gap 0.45s cubic-bezier(0.22, 1, 0.36, 1),
           background-color 0.35s ease;
       }
-      .top100-rank-row.is-expanded {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1.25rem;
-        transform: none !important;
-        border-radius: 1rem;
-        box-shadow:
-          0 0 0 1px rgba(211, 148, 255, 0.22),
-          0 20px 48px -20px rgba(138, 43, 226, 0.28);
-      }
-      .top100-rank-row.is-expanded .top100-rank-num {
-        order: 1;
-      }
-      .top100-rank-row.is-expanded .top100-row-meta {
-        order: 2;
-      }
-      .top100-rank-row.is-expanded .top100-video-embed {
-        order: 3;
-      }
-      .top100-rank-row .top100-video-embed {
-        transition:
-          width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-          max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-          box-shadow 0.45s ease,
-          border-color 0.45s ease;
-      }
-      .top100-rank-row.is-expanded .top100-video-embed {
-        width: 100%;
-        max-width: 56rem;
-        margin-left: auto;
-        margin-right: auto;
-        box-shadow: 0 0 40px rgba(170, 48, 250, 0.12);
-        border: 1px solid rgba(211, 148, 255, 0.35);
-      }
       .top100-video-collapse {
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
       }
-      .top100-rank-row.is-expanded .top100-video-collapse {
-        opacity: 1;
-        pointer-events: auto;
+      @media (min-width: 1024px) {
+        .top100-rank-row.is-expanded {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 1.25rem;
+          transform: none !important;
+          border-radius: 1rem;
+          box-shadow:
+            0 0 0 1px rgba(211, 148, 255, 0.22),
+            0 20px 48px -20px rgba(138, 43, 226, 0.28);
+        }
+        .top100-rank-row.is-expanded .top100-rank-num {
+          order: 1;
+        }
+        .top100-rank-row.is-expanded .top100-row-meta {
+          order: 2;
+        }
+        .top100-rank-row.is-expanded .top100-video-embed {
+          order: 3;
+        }
+        .top100-rank-row .top100-video-embed {
+          transition:
+            width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+            max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.45s ease,
+            border-color 0.45s ease;
+        }
+        .top100-rank-row.is-expanded .top100-video-embed {
+          width: 100%;
+          max-width: 56rem;
+          margin-left: auto;
+          margin-right: auto;
+          box-shadow: 0 0 40px rgba(170, 48, 250, 0.12);
+          border: 1px solid rgba(211, 148, 255, 0.35);
+        }
+        .top100-rank-row.is-expanded .top100-video-collapse {
+          opacity: 1;
+          pointer-events: auto;
+        }
       }
       @media (prefers-reduced-motion: reduce) {
-        .top100-rank-row,
-        .top100-rank-row .top100-video-embed,
-        .top100-video-collapse {
-          transition-duration: 0.01ms !important;
+        @media (min-width: 1024px) {
+          .top100-rank-row,
+          .top100-rank-row .top100-video-embed,
+          .top100-video-collapse {
+            transition-duration: 0.01ms !important;
+          }
         }
       }
       /* Mobile bottom bar: safe area is a separate strip so h-14 row is never clipped. */
@@ -2095,6 +2099,37 @@
 
         var top100ExpandedRow = null;
         var rankingsSection = document.getElementById("top100-rankings");
+        var top100LgMq = window.matchMedia("(min-width: 1024px)");
+
+        function top100ExpandLayoutEnabled() {
+          return top100LgMq.matches;
+        }
+
+        function syncTop100ExpandedForViewport() {
+          if (!top100ExpandLayoutEnabled() && top100ExpandedRow) {
+            top100ExpandedRow.classList.remove("is-expanded");
+            top100ExpandedRow = null;
+          }
+        }
+
+        if (top100LgMq.addEventListener) {
+          top100LgMq.addEventListener("change", syncTop100ExpandedForViewport);
+        } else if (top100LgMq.addListener) {
+          top100LgMq.addListener(syncTop100ExpandedForViewport);
+        }
+
+        function pauseOtherTop100YtPlayers(currentIframe) {
+          document
+            .querySelectorAll(".top100-rank-row iframe[data-yt-id]")
+            .forEach(function (ifr) {
+              if (ifr === currentIframe) return;
+              if (ifr._top100YtPlayer && ifr._top100YtPlayer.pauseVideo) {
+                try {
+                  ifr._top100YtPlayer.pauseVideo();
+                } catch (errPause) {}
+              }
+            });
+        }
 
         document
           .querySelectorAll("iframe[data-yt-id]")
@@ -2131,7 +2166,7 @@
               var player = new YT.Player(iframe, {
                 events: {
                   onStateChange: function (event) {
-                    handleTop100YtStateChange(event, row);
+                    handleTop100YtStateChange(event, iframe, row);
                   },
                 },
               });
@@ -2139,22 +2174,12 @@
             });
         }
 
-        function handleTop100YtStateChange(event, row) {
+        function handleTop100YtStateChange(event, iframe, row) {
           if (event.data !== 1) return;
+          pauseOtherTop100YtPlayers(iframe);
+          if (!top100ExpandLayoutEnabled()) return;
           if (top100ExpandedRow && top100ExpandedRow !== row) {
             top100ExpandedRow.classList.remove("is-expanded");
-            var prevIframe = top100ExpandedRow.querySelector(
-              "iframe[data-yt-id]",
-            );
-            if (
-              prevIframe &&
-              prevIframe._top100YtPlayer &&
-              prevIframe._top100YtPlayer.pauseVideo
-            ) {
-              try {
-                prevIframe._top100YtPlayer.pauseVideo();
-              } catch (err) {}
-            }
           }
           row.classList.add("is-expanded");
           top100ExpandedRow = row;

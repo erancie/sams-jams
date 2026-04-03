@@ -885,11 +885,23 @@
           return;
         }
 
+        function pauseOtherHomeYtPlayers(currentIframe) {
+          document.querySelectorAll("iframe[data-yt-id]").forEach(function (ifr) {
+            if (ifr === currentIframe) return;
+            if (ifr._homeYtPlayer && ifr._homeYtPlayer.pauseVideo) {
+              try {
+                ifr._homeYtPlayer.pauseVideo();
+              } catch (errPause) {}
+            }
+          });
+        }
+
         document
           .querySelectorAll("iframe[data-yt-id]")
-          .forEach(function (iframe) {
+          .forEach(function (iframe, ix) {
             var id = iframe.getAttribute("data-yt-id");
             if (!id) return;
+            if (!iframe.id) iframe.id = "home-yt-" + ix;
 
             var params = new URLSearchParams({
               feature: "oembed",
@@ -906,6 +918,40 @@
               "?" +
               params.toString();
           });
+
+        function initHomeYtPlayers() {
+          if (!window.YT || !window.YT.Player) return;
+          document
+            .querySelectorAll("iframe[data-yt-id]")
+            .forEach(function (iframe) {
+              if (iframe.getAttribute("data-yt-player-init")) return;
+              iframe.setAttribute("data-yt-player-init", "1");
+              var player = new YT.Player(iframe, {
+                events: {
+                  onStateChange: function (event) {
+                    if (event.data !== 1) return;
+                    pauseOtherHomeYtPlayers(iframe);
+                  },
+                },
+              });
+              iframe._homeYtPlayer = player;
+            });
+        }
+
+        var previousHomeYtReady = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function () {
+          if (typeof previousHomeYtReady === "function") previousHomeYtReady();
+          initHomeYtPlayers();
+        };
+
+        if (window.YT && window.YT.Player) {
+          initHomeYtPlayers();
+        } else {
+          var homeYtApiTag = document.createElement("script");
+          homeYtApiTag.src = "https://www.youtube.com/iframe_api";
+          var homeFirstScript = document.getElementsByTagName("script")[0];
+          homeFirstScript.parentNode.insertBefore(homeYtApiTag, homeFirstScript);
+        }
 
         var topNav = document.getElementById("top-nav");
         var heroSection = document.querySelector("main > section");

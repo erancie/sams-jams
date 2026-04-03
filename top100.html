@@ -223,26 +223,33 @@
             <span class="text-primary">TOP 100</span>
           </h1>
           <div class="flex flex-wrap gap-4 mt-8">
-            <button
-              class="bg-gradient-to-r from-primary to-primary-dim text-on-primary font-label font-bold py-4 px-8 rounded-full flex items-center gap-2 hover:opacity-90 transition-opacity"
+            <a
+              href="#top100-first-video"
+              class="bg-gradient-to-r from-primary to-primary-dim text-on-primary font-label font-bold rounded-full px-8 py-3.5 inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
             >
+              LET'S JAM!
               <span
-                class="material-symbols-outlined"
+                class="material-symbols-outlined shrink-0"
                 data-icon="play_arrow"
                 data-weight="fill"
                 >play_arrow</span
               >
-              PLAY ALL
-            </button>
-            <button
-              class="border border-outline-variant/20 text-on-surface font-label font-bold py-4 px-8 rounded-full hover:bg-white/5 transition-all"
+            </a>
+            <a
+              href="index.html"
+              class="border border-outline-variant/20 text-on-surface font-label font-bold rounded-full px-8 py-3.5 inline-flex items-center gap-2 hover:bg-white/5 transition-all"
             >
-              FOLLOW CHART
-            </button>
+              SONG OF THE WEEK
+              <span
+                class="material-symbols-outlined shrink-0"
+                data-icon="arrow_forward"
+                >arrow_forward</span
+              >
+            </a>
           </div>
         </div>
       </section>
-      <!-- Content Filter Controls -->
+      <!-- Content Filter Controls (hidden)
       <section
         class="px-8 py-12 max-w-7xl mx-auto border-b border-outline-variant/10"
       >
@@ -284,6 +291,7 @@
           </div>
         </div>
       </section>
+      -->
       <!-- Rankings List (from top100.md) -->
       <section
         id="top100-rankings"
@@ -291,7 +299,8 @@
       >
         <!-- Item 1 -->
         <div
-          class="group flex flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
+          id="top100-first-video"
+          class="group flex scroll-mt-28 flex-col md:flex-row items-center gap-8 md:gap-12 hover:translate-x-2 transition-transform duration-300"
         >
           <span
             class="font-headline text-8xl text-tertiary italic font-black opacity-80 min-w-[120px]"
@@ -1880,6 +1889,10 @@
 
         function getCurrentTop100RowIndex(rows) {
           if (!rows.length) return 0;
+          var firstRect = rows[0].getBoundingClientRect();
+          if (firstRect.top >= window.innerHeight) {
+            return -1;
+          }
           var viewportMid = window.innerHeight / 2;
           var bestIdx = 0;
           var bestDist = Infinity;
@@ -1906,7 +1919,11 @@
         function goTop100VideoByDelta(delta) {
           var rows = getTop100Rows();
           if (!rows.length) return;
-          var nextIndex = getCurrentTop100RowIndex(rows) + delta;
+          var current = getCurrentTop100RowIndex(rows);
+          if (current === -1 && delta < 0) {
+            return;
+          }
+          var nextIndex = current + delta;
           if (nextIndex < 0) nextIndex = 0;
           if (nextIndex > rows.length - 1) nextIndex = rows.length - 1;
           scrollToTop100RowIndex(rows, nextIndex);

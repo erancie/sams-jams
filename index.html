@@ -1016,6 +1016,12 @@
 
         function getCurrentFeaturedVideoIndex() {
           if (!featuredCards.length) return 0;
+          var firstRect = featuredCards[0].getBoundingClientRect();
+          /* Before any video has entered the viewport (hero still showing), act as if we are
+             before the first card so NEXT goes to video 1, not video 2. */
+          if (firstRect.top >= window.innerHeight) {
+            return -1;
+          }
           var viewportMid = window.innerHeight / 2;
           var bestIdx = 0;
           var bestDist = Infinity;
@@ -1033,7 +1039,11 @@
 
         function goFeaturedVideoByDelta(delta) {
           if (!featuredCards.length) return;
-          var i = getCurrentFeaturedVideoIndex() + delta;
+          var current = getCurrentFeaturedVideoIndex();
+          if (current === -1 && delta < 0) {
+            return;
+          }
+          var i = current + delta;
           if (i < 0) i = 0;
           if (i > featuredCards.length - 1) i = featuredCards.length - 1;
           var card = featuredCards[i];
